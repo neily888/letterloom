@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6f5ed" />
+  <meta name="description" content="Letterloom is a friendly offline word-tile game. Play against the computer or share a device with a friend." />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/svg+xml" href="./assets/icon.svg" />
+  <link rel="apple-touch-icon" href="./assets/icon-192.png" />
+  <link rel="stylesheet" href="./styles.css?v=1.19.0" />
+  <title>Letterloom — a little friendly wordplay</title>
+</head>
+<body>
+  <div class="page-glow glow-one" aria-hidden="true"></div><div class="page-glow glow-two" aria-hidden="true"></div>
+  <div class="app" id="app">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Letterloom home">
+        <span class="brand-mark" aria-hidden="true"><span>L</span><i></i></span>
+        <span>letter<span class="brand-em">loom</span><small>WORD GAMES, WELL PLAYED.</small></span>
+      </a>
+      <div class="header-actions">
+        <span class="offline-badge"><span class="offline-dot"></span><span id="connection-status">Works offline</span></span>
+        <button class="icon-button" id="help-button" aria-label="How to play" title="How to play">?</button>
+        <button class="header-button install-button" id="install-button" hidden>Install app <span aria-hidden="true">↗</span></button>
+        <button class="header-button new-button" id="new-button">New game <span aria-hidden="true">＋</span></button>
+      </div>
+    </header>
+    <main class="layout">
+      <aside class="side-panel left-panel">
+        <div class="eyebrow"><span class="eyebrow-line"></span> THE MATCH</div>
+        <h1 class="side-heading">Your next great<br/><em>word awaits.</em></h1>
+        <div id="scoreboard" class="scoreboard" aria-label="Player scores"></div>
+        <div class="panel-card history-card">
+          <div class="panel-title"><span>Recent moves</span><span class="panel-icon">↗</span></div>
+          <div id="history" class="history-list"></div>
+        </div>
+        <p class="aside-note">Think a little. Play a little.<br/>Make every letter count. <span>✳</span></p>
+      </aside>
+      <section class="game-area" aria-label="Word game">
+        <div class="game-heading">
+          <div><div class="eyebrow accent-eyebrow">YOUR DAILY DOSE OF WORDPLAY</div><h2>Make your move<span class="heading-period">.</span></h2></div>
+          <div class="turn-badges"><span class="style-indicator" id="style-indicator">Relaxed play</span><div class="turn-pill" id="turn-label">TURN 01</div></div>
+        </div>
+        <div class="mobile-scores" id="mobile-scores"></div>
+        <div class="board-surround">
+          <div class="board-corner corner-a" aria-hidden="true">✦</div>
+          <div id="board" class="board" role="grid" aria-label="15 by 15 word board"></div>
+          <div class="board-corner corner-b" aria-hidden="true">✦</div>
+        </div>
+        <div class="game-status-line"><span class="turn-indicator"><span></span><span id="current-player-label">Your turn</span></span><span class="tile-count" id="tile-count">86 tiles left</span></div><div class="last-move-row"><div id="last-move-note" class="last-move-note" aria-live="polite"></div><button type="button" id="show-last-move" class="last-move-button" aria-pressed="false" hidden>◉ Show last move</button></div><p class="definition-tip"><span aria-hidden="true">▤</span> Tap a word on the board to see what it means.</p>
+        <div class="rack-header"><div><span class="eyebrow">YOUR LETTERS</span><span class="rack-caption" id="rack-caption">Tap to play · drag to arrange</span></div><div class="rack-tools"><button id="hint-button" class="tiny-action hint-action" title="Show a possible word" type="button">✦ Hint</button><button id="undo-button" class="tiny-action" title="Recall placed tiles">↶ Undo</button><button id="arrange-button" class="tiny-action arrange-action" title="Arrange your rack by hand" type="button" aria-pressed="false">⇄ Arrange</button><button id="shuffle-button" class="tiny-action" title="Shuffle letters">⤨ Shuffle</button></div></div>
+        <div class="rack-wrap"><div id="rack" class="rack" aria-label="Your seven letter tiles"></div></div><p id="rack-order-tip" class="rack-order-tip" role="status" aria-live="polite" hidden></p>
+        <div class="move-bottom"><div class="move-feedback" id="move-feedback" role="status" aria-live="polite"><span class="feedback-icon">✦</span><span id="feedback-text">Loading your dictionary…</span></div><div class="action-group"><button id="swap-button" class="secondary-action">Swap</button><button id="pass-button" class="secondary-action">Pass</button><button id="play-button" class="primary-action" disabled>Play word <span class="play-score" id="play-score"></span><span aria-hidden="true">→</span></button></div></div>
+      </section>
+      <aside class="side-panel right-panel">
+        <div class="panel-card move-card"><div class="eyebrow">YOUR PLAY</div><div class="potential-score" id="potential-score">—<small>POINTS</small></div><div class="preview-title">Words in this move</div><div id="word-preview" class="word-preview">Place letters to preview your score.</div></div>
+        <div class="panel-card legend-card"><div class="panel-title"><span>Little boosts</span><span class="panel-icon">✳</span></div><div class="legend-row"><span class="legend-tile tw">TW</span><span>Triple word</span></div><div class="legend-row"><span class="legend-tile dw">DW</span><span>Double word</span></div><div class="legend-row"><span class="legend-tile tl">TL</span><span>Triple letter</span></div><div class="legend-row"><span class="legend-tile dl">DL</span><span>Double letter</span></div><p class="legend-foot">Premium squares count only when first covered. All seven tiles in one play? +35 points!</p></div>
+        <button id="rules-link" class="rules-link">New to word games? <span>How to play ↗</span></button>
+      </aside>
+    </main>
+    <footer class="page-footer"><span>MADE FOR WORD PEOPLE ✳</span><span>A standalone, unofficial word game. Not affiliated with Words With Friends. <span id="dictionary-count" class="app-version">UK English</span> · <span class="app-version" aria-label="Game version 1.19">v1.19</span></span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="modal-backdrop" id="modal-backdrop" hidden><div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"></div></div>
+  <script type="module" src="./app.js?v=1.19.0"></script>
+</body>
+</html>

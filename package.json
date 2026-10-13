@@ -1,0 +1,12 @@
+{
+  "name": "letterloom-pwa",
+  "version": "1.19.0",
+  "private": true,
+  "type": "module",
+  "description": "An offline-first word board game with pass-and-play and computer opponent",
+  "scripts": {
+    "dev": "node scripts/dev-server.js",
+    "start": "node scripts/dev-server.js",
+    "test": "node --test tests/*.test.js"
+  }
+}
