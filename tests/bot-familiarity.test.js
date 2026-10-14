@@ -28,18 +28,21 @@ test('relaxed computer prefers a familiar word over a higher scoring odd one',()
  const full=findBotMove(g,words,legal,1000,{gentle:false,preferFamiliar:true,familiarWords:new Set(['CAT'])});
  assert.ok(full);
  assert.equal(evaluateMove(g,full,legal).words[0].word,'CAT');
- const classic=findBotMove(g,words,legal,1000,{gentle:false});
- assert.equal(evaluateMove(g,classic,legal).words[0].word,'ZA');
+ g.playStyle='classic';g.everydayShortWords=false;
+ const classic=findBotMove(g,words,dict,1000,{gentle:false});
+ assert.equal(evaluateMove(g,classic,dict).words[0].word,'ZA');
+ g.playStyle='relaxed';g.everydayShortWords=true;
  assert.ok(commitMove({...g,pending:full},legal).valid);
 });
 
 test('rare words are still permitted when nothing familiar is possible',()=>{
- const g=createGame('solo','relaxed');g.board.fill(null);g.current=1;
+ const g=createGame('solo','classic');g.board.fill(null);g.current=1;
  g.players[1].rack=['Z','A'].map((ch,i)=>tile('t'+i,ch));
  const move=findBotMove(g,['ZA'],dict,500,{gentle:false,preferFamiliar:true,familiarWords:new Set()});
  assert.equal(evaluateMove(g,move,dict).words[0].word,'ZA');
  assert.ok(dict.has('ZA'));
- assert.equal(createLegalDictionary(dict,'classic'),createLegalDictionary(dict,'relaxed'));
+ assert.ok(!createLegalDictionary(dict,'relaxed').has('ZA'));
+ assert.ok(createLegalDictionary(dict,'classic').has('ZA'));
 });
 
 test('word discovery identifies regional slang and British historical meaning offline',async()=>{
@@ -55,7 +58,7 @@ test('installed PWA pre-caches the new preference code and versioned player file
  const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
  const app=readFileSync(new URL('../app.js',import.meta.url),'utf8');
  assert.match(sw,/bot-familiarity.js\?v=1\.19\.0/);
- assert.match(sw,/letterloom-offline-v20/);
+ assert.match(sw,/letterloom-offline-v21/);
  assert.match(app,/preferFamiliar/);
  assert.match(app,/familiarWords/);
 });
