@@ -1,5 +1,12 @@
 # Letterloom release notes
 
+## v1.20 — Everyday Short Words
+- Optional shared short-word rules, on by default for new Relaxed matches.
+- Classic retains the comprehensive dictionary.
+- Existing saved games preserve their earlier rules.
+- UI and PWA caching versioned to v1.20.
+
+
 ## v1.19 — More natural British English in Relaxed Play
 
 - The Relaxed computer now considers **all** new words formed in a turn, including cross-words, when choosing among legal moves. A high score from strange short words such as ZA or PO is no longer automatically preferred over a familiar alternative.
