@@ -125,3 +125,10 @@
 .other-meanings-panel[hidden]{display:none}
 .other-meanings-panel h4{margin:0 0 12px;font-size:17px;color:#2c634c}
 .other-meanings-panel .meaning-item+.meaning-item{border-top:1px dashed #d5e3d4;padding-top:11px}
+
+/* Optional relaxed-play word rules */
+.short-words-option{display:flex;align-items:flex-start;gap:12px;margin-top:16px;padding:13px 15px;background:#edf4e9;border:1px solid #c8ddbe;border-radius:12px;cursor:pointer;color:#284b3a}
+.short-words-option[hidden]{display:none}
+.short-words-option input{flex:none;width:21px;height:21px;margin:2px 0 0;accent-color:#457d53}
+.short-words-option span{display:flex;flex-direction:column;gap:4px}
+.short-words-option small{font-size:13px;line-height:1.45;color:#496253}
