@@ -1,6 +1,6 @@
-import {SIZE, PREMIUM, CENTER, createGame, evaluateMove, commitMove, takePass, shuffle, LETTER_POINTS, createLegalDictionary} from './engine.js?v=1.9.0';
-import {findBotMove, findQuickBotMove} from './bot.js?v=1.19.0';
-import {loadBritishWords} from './uk-dictionary.js?v=1.9.0';
+import {SIZE, PREMIUM, CENTER, createGame, evaluateMove, commitMove, takePass, shuffle, LETTER_POINTS, createLegalDictionary} from './engine.js?v=1.20.0';
+import {findBotMove, findQuickBotMove} from './bot.js?v=1.20.0';
+import {loadBritishWords} from './uk-dictionary.js?v=1.20.0';
 import {wordsAtCell, createDefinitionLookup} from './word-lookup.js?v=1.19.0';
 import {moveVisibleRackTile, nearestRackSlot, rackShiftOffsets, swapRackTiles} from './rack-order.js?v=1.15.0';
 import {movePendingTile, returnPendingTile} from './board-placement.js?v=1.16.0';
@@ -197,6 +197,7 @@ let modalType = null;
 let pendingBlankPosition = null;
 let newMode = game.mode;
 let newStyle = 'relaxed';
+let newShortWords = true;
 let hintWorking = false;
 let hintMessage = '';
 let hintIndices = [];
@@ -219,6 +220,8 @@ function restore(){
     const data=JSON.parse(localStorage.getItem(STORAGE_KEY));
     if(!data || data.version!==1 || !['local','solo'].includes(data.mode) || data.board?.length!==225 || data.players?.length!==2 || !Array.isArray(data.bag) || !Array.isArray(data.pending))return null;
     if(!data.playStyle){data.playStyle='classic';data.balancedRack=true;} // Continue older matches without changing their racks.
+    // Older saved games keep their original word rules.
+    if(typeof data.everydayShortWords!=='boolean')data.everydayShortWords=false;
     data.freeSwapUsed ??= [false,false];
     return data;
   }catch{return null;}
@@ -332,7 +335,7 @@ function renderScores(){
   $('scoreboard').innerHTML=game.players.map((p,i)=>`<div class="player-card ${game.current===i&&game.status==='playing'?'active':''}"><div class="player-avatar avatar-${i}">${i===0?'A':'B'}</div><div class="player-meta"><strong>${escapeText(p.name)}</strong><span>${game.current===i&&game.status==='playing'?'● Playing now':i===0?'First player':'Second player'}</span></div><span class="player-points">${p.score}</span></div>`).join('');
   $('mobile-scores').innerHTML=game.players.map((p,i)=>`<div class="mobile-score ${game.current===i&&game.status==='playing'?'active':''}"><span>${game.current===i&&game.status==='playing'?'● ':''}${escapeText(p.name)}</span><strong>${p.score}</strong></div>`).join('');
   $('turn-label').textContent=game.status==='finished'?'GAME OVER':`TURN ${String(game.turn).padStart(2,'0')}`;
-  $('style-indicator').textContent=game.playStyle==='relaxed'?'Relaxed play':'Classic play';
+  $('style-indicator').textContent=game.playStyle==='relaxed'?(game.everydayShortWords?'Relaxed · Everyday words':'Relaxed play'):'Classic play';
   document.body.classList.toggle('relaxed-layout',game.playStyle==='relaxed');
   $('current-player-label').textContent=game.status==='finished'?'Game finished':thinking?'Computer is thinking…':privacy?'Ready for the next player':`${game.players[game.current].name}'s turn`;
   $('tile-count').textContent=`${game.bag.length} tiles left`;
@@ -593,8 +596,8 @@ function openModal(type){
   modalType=type;
   $('modal-backdrop').hidden=false;
   if(type==='new'){
-    newMode=game.mode;newStyle=game.playStyle||'relaxed';
-    const body=`<p>Choose how you'd like to play. Starting a new match replaces your current game.</p><h3 class="choice-heading">Who is playing?</h3><div class="choice-grid"><button class="choice ${newMode==='solo'?'selected':''}" data-action="mode" data-mode="solo" aria-pressed="${newMode==='solo'}"><span class="choice-icon">✦</span><strong>Play computer</strong><span>A friendly offline opponent.</span></button><button class="choice ${newMode==='local'?'selected':''}" data-action="mode" data-mode="local" aria-pressed="${newMode==='local'}"><span class="choice-icon">♧</span><strong>Pass & play</strong><span>Two people on one device.</span></button></div><h3 class="choice-heading">Choose your play style</h3><div class="choice-grid"><button class="choice ${newStyle==='relaxed'?'selected':''}" data-action="style" data-style="relaxed" aria-pressed="${newStyle==='relaxed'}"><span class="choice-icon">☀</span><strong>Relaxed <small>Recommended</small></strong><span>Gentler computer, British English words, hints and one free swap each.</span></button><button class="choice ${newStyle==='classic'?'selected':''}" data-action="style" data-style="classic" aria-pressed="${newStyle==='classic'}"><span class="choice-icon">♜</span><strong>Classic</strong><span>The same British English words, stronger computer and traditional swapping.</span></button></div>`;
+    newMode=game.mode;newStyle=game.playStyle||'relaxed';newShortWords=newStyle==='relaxed';
+    const body=`<p>Choose how you'd like to play. Starting a new match replaces your current game.</p><h3 class="choice-heading">Who is playing?</h3><div class="choice-grid"><button class="choice ${newMode==='solo'?'selected':''}" data-action="mode" data-mode="solo" aria-pressed="${newMode==='solo'}"><span class="choice-icon">✦</span><strong>Play computer</strong><span>A friendly offline opponent.</span></button><button class="choice ${newMode==='local'?'selected':''}" data-action="mode" data-mode="local" aria-pressed="${newMode==='local'}"><span class="choice-icon">♧</span><strong>Pass & play</strong><span>Two people on one device.</span></button></div><h3 class="choice-heading">Choose your play style</h3><div class="choice-grid"><button class="choice ${newStyle==='relaxed'?'selected':''}" data-action="style" data-style="relaxed" aria-pressed="${newStyle==='relaxed'}"><span class="choice-icon">☀</span><strong>Relaxed <small>Recommended</small></strong><span>Gentler computer, British English words, hints and one free swap each.</span></button><button class="choice ${newStyle==='classic'?'selected':''}" data-action="style" data-style="classic" aria-pressed="${newStyle==='classic'}"><span class="choice-icon">♜</span><strong>Classic</strong><span>The full British English word list, stronger computer and traditional swapping.</span></button></div><label id="short-words-option" class="short-words-option" ${newStyle==='classic'?'hidden':''}><input type="checkbox" id="short-words-checkbox" ${newShortWords?'checked':''}><span><strong>Everyday Short Words</strong><small>Recommended: common 2-letter words, only a few rare 3-letter forms excluded. Same rules for both players.</small></span></label>`;
     dialogShell('LET’S PLAY','A fresh set of letters.',body,`${cancel}<button class="primary-action" data-action="start">Start game →</button>`);
   }else if(type==='definition'){
     const choices=definitionWords.map(({word,direction})=>`<button type="button" class="definition-choice" data-action="define-word" data-word="${escapeText(word)}" aria-pressed="false"><span class="definition-choice-word">${escapeText(word)}</span> <small class="definition-choice-direction">· ${direction==='across'?'Across':'Down'}</small></button>`).join('');
@@ -604,7 +607,7 @@ function openModal(type){
   }else if(type==='help'){
     const style=game.playStyle==='relaxed';
     const detail=style?`<li><strong>Relaxed Play:</strong> the computer prefers familiar British English, including any extra words made where tiles cross. It can still use less familiar words when necessary. Hints are available, and the first letter swap for each player is free. Incoming tiles aim for a balance of vowels when possible.</li>`:`<li><strong>Classic Play:</strong> a more competitive computer opponent, random draws and all swaps cost a turn.</li>`;
-    const body=`<p>You're playing <strong>${style?'Relaxed':'Classic'}</strong> mode. Both modes use the <strong>same British English dictionary</strong>, and every word is checked by the same rules for you and the computer.</p><p>${dictionary?`<strong>${dictionary.size.toLocaleString('en-GB')} accepted words</strong> · ${escapeText(dictionaryInfo)}.`:'The offline British dictionary is loading.'}</p><ol class="rules"><li>Each player has <strong>7 letter tiles</strong>.</li><li>Tap a letter and then an empty square. You can <strong>drag letters along the rack</strong> to reorder them, or tap <strong>Arrange</strong> and tap two letters to swap positions. <strong>Before playing a word, drag a placed letter to another board square</strong> to correct its position, or drag it back to your rack. Arranging letters never costs a turn. Place your first word across the <strong>centre star</strong>.</li><li>Words after that must connect to the existing board. New tiles must form one row or column without gaps.</li><li><strong>Every word formed</strong> must be accepted, including small words crossing sideways.</li><li><strong>After the computer plays</strong>, its new tiles glow green briefly. Tap <strong>Show last move</strong> to see them again until you tap the board or hide the highlight.</li><li><strong>Tap any played letter</strong> to see the full word and its meaning. Where words cross, choose which to read. The main meaning appears first; tap <strong>Other meanings</strong> to explore less common uses. Some meanings require an internet connection on first lookup.</li><li>Bonus squares count only once. A blank tile can be any letter.</li>${detail}<li>The tile bag is finite. A match finishes when someone uses their last tile after the bag is empty, or after six consecutive scoreless turns. Remaining letter points are deducted at the end.</li></ol><div class="modal-highlight">No timer, no rush. Once loaded, the dictionary is saved for offline play.</div>`;
+    const body=`<p>You're playing <strong>${style?'Relaxed':'Classic'}</strong> mode. Both players follow <strong>exactly the same word rules</strong>. ${style&&game.everydayShortWords?'Everyday Short Words is on: familiar two-letter words and most three-letter words are allowed.':'The full British-English word-game list is used.'}</p><p>${dictionary?`<strong>${dictionary.size.toLocaleString('en-GB')} accepted words</strong> · ${escapeText(dictionaryInfo)}.`:'The offline British dictionary is loading.'}</p><ol class="rules"><li>Each player has <strong>7 letter tiles</strong>.</li><li>Tap a letter and then an empty square. You can <strong>drag letters along the rack</strong> to reorder them, or tap <strong>Arrange</strong> and tap two letters to swap positions. <strong>Before playing a word, drag a placed letter to another board square</strong> to correct its position, or drag it back to your rack. Arranging letters never costs a turn. Place your first word across the <strong>centre star</strong>.</li><li>Words after that must connect to the existing board. New tiles must form one row or column without gaps.</li><li><strong>Every word formed</strong> must be accepted, including small words crossing sideways.</li><li><strong>After the computer plays</strong>, its new tiles glow green briefly. Tap <strong>Show last move</strong> to see them again until you tap the board or hide the highlight.</li><li><strong>Tap any played letter</strong> to see the full word and its meaning. Where words cross, choose which to read. The main meaning appears first; tap <strong>Other meanings</strong> to explore less common uses. Some meanings require an internet connection on first lookup.</li><li>Bonus squares count only once. A blank tile can be any letter.</li>${detail}<li>The tile bag is finite. A match finishes when someone uses their last tile after the bag is empty, or after six consecutive scoreless turns. Remaining letter points are deducted at the end.</li></ol><div class="modal-highlight">No timer, no rush. Once loaded, the dictionary is saved for offline play.</div>`;
     dialogShell('THE RULES','The joy is in the words.',body,`<button class="primary-action" data-action="close">Got it →</button>`);
   }else if(type==='handoff'){
     dialogShell('NEXT UP',`Pass it to ${escapeText(game.players[game.current].name)}.`,`<p>It's their turn now. Their letters are hidden until they're ready to play.</p><div class="modal-highlight">✳ Hand over the device before revealing the rack.</div>`,`<button class="primary-action" data-action="ready">I’m ready →</button>`,false);
@@ -642,12 +645,15 @@ $('modal').addEventListener('click',event=>{
     $('modal').querySelectorAll('[data-action="mode"]').forEach(b=>{b.classList.toggle('selected',b.dataset.mode===newMode);b.setAttribute('aria-pressed',String(b.dataset.mode===newMode));});
   }else if(action==='style'){
     newStyle=button.dataset.style;
+    newShortWords=newStyle==='relaxed';
+    const option=$('short-words-option');if(option)option.hidden=newStyle!=='relaxed';
+    const checkbox=$('short-words-checkbox');if(checkbox)checkbox.checked=newShortWords;
     $('modal').querySelectorAll('[data-action="style"]').forEach(b=>{b.classList.toggle('selected',b.dataset.style===newStyle);b.setAttribute('aria-pressed',String(b.dataset.style===newStyle));});
   }else if(action==='start'){
     clearTimeout(botTimeout);botTimeout=null;
     hintWorker?.terminate();hintWorker=null;hintWorking=false;clearHint();
     stopComputerHighlight();
-    game=createGame(newMode,newStyle);thinking=false;privacy=false;selectedId=null;arranging=false;arrangeFirstId=null;dictionary=null;dictionaryInfo='British English';closeModal();persist();render();notify('Fresh board, fresh possibilities!');loadDictionary();
+    game=createGame(newMode,newStyle,newShortWords);thinking=false;privacy=false;selectedId=null;arranging=false;arrangeFirstId=null;dictionary=null;dictionaryInfo='British English';closeModal();persist();render();notify('Fresh board, fresh possibilities!');loadDictionary();
   }else if(action==='new-from-end'){closeModal();openModal('new');}
   else if(action==='restart-from-bot'){modalType=null;$('modal-backdrop').hidden=true;openModal('new');}
   else if(action==='retry-bot'){modalType=null;$('modal-backdrop').hidden=true;runBot();}
@@ -672,6 +678,9 @@ $('modal').addEventListener('click',event=>{
   }else if(action==='confirm-pass'){
     takePass(game,'pass');closeModal();notify('Turn passed.');afterTurn();
   }
+});
+$('modal').addEventListener('change',event=>{
+  if(event.target.id==='short-words-checkbox')newShortWords=event.target.checked;
 });
 $('board').addEventListener('click',event=>{
   if(Date.now()<ignoreBoardClickUntil){event.preventDefault();return;}
@@ -775,7 +784,7 @@ async function loadDictionary(){
     const {words,source}=await loadBritishWords();
     const friendly=friendlyResponse?(await friendlyResponse.text()).trim().split(/\s+/):null;
     if(game!==expectedGame)return;
-    dictionary=createLegalDictionary(words,game.playStyle);
+    dictionary=createLegalDictionary(words,game.playStyle,game.everydayShortWords);
     dictionaryInfo=source;
     relaxedBotWords=friendly;
     render();
