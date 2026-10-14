@@ -3,7 +3,7 @@
  * online visit and converted into playable, unhyphenated word forms.
  * The generated word list is cached on-device for subsequent offline games.
  */
-import {TWO_LETTER_WORDS} from './engine.js?v=1.9.0';
+import {TWO_LETTER_WORDS} from './engine.js?v=1.20.0';
 
 const UK_DIC='https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_GB.dic';
 const UK_AFF='https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_GB.aff';

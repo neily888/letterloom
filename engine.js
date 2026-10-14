@@ -36,10 +36,25 @@ WE WO
 XI XU
 YA YE YI YO
 ZA`.trim().split(/\s+/));
-// Both styles now use the SAME British-English word list and accepted short words.
-// Relaxed changes the computer's strategy and rack help, not word legality.
-export function createLegalDictionary(words, _playStyle='classic') {
-  return words instanceof Set ? words : new Set(words);
+// Classic retains the full playable list. Relaxed defaults to a carefully
+// chosen everyday short-word list, shared by human and computer. Users can
+// disable this preference when starting a new Relaxed match.
+export const EVERYDAY_TWO_LETTER_WORDS = new Set(`AB AD AH AI AM AN AS AT AW AY
+BE BI BY DO ED EH EX GO HA HE HI HM HO ID IF IN IS IT
+LA LO MA ME MI MO MY NO OF OH OI OK ON OR OW OX
+PA PI PO RE SH SO TA TO UH UM UN UP US WE YA YE YO`.split(/\s+/));
+// Only unambiguous rare three-letter game forms: avoid removing common
+// words which happen to share a spelling with a letter's name (BEE, PEE).
+export const EXCLUDED_THREE_LETTER_WORDS = new Set(`CEE DEE EFF ELL EMM ESS QIS XIS ZAS`.split(/\s+/));
+export function isEverydayShortWord(word){
+  if(word.length===2)return EVERYDAY_TWO_LETTER_WORDS.has(word);
+  if(word.length===3)return !EXCLUDED_THREE_LETTER_WORDS.has(word);
+  return true;
+}
+export function createLegalDictionary(words, playStyle='classic', everydayShortWords=playStyle==='relaxed') {
+  const base=words instanceof Set?words:new Set(words);
+  if(playStyle!=='relaxed'||!everydayShortWords)return base;
+  return new Set([...base].filter(isEverydayShortWord));
 }
 export const isPlayableWord = (word, dictionary) =>
   !!dictionary && dictionary.has(word) && (word.length !== 2 || TWO_LETTER_WORDS.has(word));
@@ -54,7 +69,7 @@ export const PREMIUM = Object.freeze(premium);
 export const inside = (r,c) => r>=0 && r<SIZE && c>=0 && c<SIZE;
 export const tileAt = (game, pendingByIndex, r, c) => inside(r,c) ? (pendingByIndex.get(pos(r,c))?.tile ?? game.board[pos(r,c)]) : null;
 
-export function createGame(mode='solo', playStyle='relaxed') {
+export function createGame(mode='solo', playStyle='relaxed', everydayShortWords=playStyle==='relaxed') {
   const bag = [];
   let seq = 0;
   for (const [letter,count] of Object.entries(DISTRIBUTION)) {
@@ -62,7 +77,7 @@ export function createGame(mode='solo', playStyle='relaxed') {
   }
   shuffle(bag);
   const game = {
-    version:1, mode, playStyle, balancedRack:playStyle==='relaxed', freeSwapUsed:[false,false], board:Array(SIZE*SIZE).fill(null), bag, players:[
+    version:1, mode, playStyle, everydayShortWords:playStyle==='relaxed'&&!!everydayShortWords, balancedRack:playStyle==='relaxed', freeSwapUsed:[false,false], board:Array(SIZE*SIZE).fill(null), bag, players:[
       {name:mode==='solo'?'You':'Player 1',score:0,rack:[]},
       {name:mode==='solo'?'Computer':'Player 2',score:0,rack:[]}
     ], current:0, pending:[], history:[], scorelessTurns:0, status:'playing', winner:null,
@@ -150,6 +165,10 @@ export function evaluateMove(game,pending=game.pending,dictionary=null){
   const hasOldTiles=game.board.some(Boolean);
   if(!hasOldTiles && !overlay.has(CENTER)) return fail('Your opening word must cover the centre star.');
   if(hasOldTiles && !words.some(w=>w.cells.some(cell=>!cell.fresh))) return fail('Connect your word to a letter already on the board.');
+  if(game.playStyle==='relaxed' && game.everydayShortWords){
+    const excluded=words.filter(w=>!isEverydayShortWord(w.word));
+    if(excluded.length)return fail(`${excluded.map(w=>w.word).join(', ')} ${excluded.length===1?'is':'are'} excluded by Everyday Short Words. You can switch this off for a new match.`);
+  }
   if(dictionary){
     const invalid=words.filter(w=>!isPlayableWord(w.word,dictionary));
     if(invalid.length) return fail(`${invalid.map(w=>w.word).join(', ')} ${invalid.length===1?'is not':'are not'} in the offline word list.`);

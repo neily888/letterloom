@@ -39,7 +39,9 @@ test('classic has same dictionary but fully random draws',()=>{
  assert.equal(g.balancedRack,false);
  assert.equal(g.freeSwapUsed[0],false);
  assert.equal(createLegalDictionary(legal,'classic'),legal);
- assert.equal(createLegalDictionary(legal,'relaxed'),legal);
+ assert.notEqual(createLegalDictionary(legal,'relaxed'),legal);
+ assert.equal(createLegalDictionary(legal,'relaxed',false),legal);
+ assert.ok(!createLegalDictionary(legal,'relaxed').has('ZA'));
 });
 test('CAT opens across centre and scores bonus correctly',()=>{
  const g=fixture();
@@ -83,7 +85,8 @@ test('approved two-letter list and no old spellchecker abbreviation leak',()=>{
 test('one dictionary for player and computer in either mode',()=>{
  for(const style of ['relaxed','classic']){
   const dic=createLegalDictionary(legal,style);
-  for(const word of ['AD','ORG','DEF','TUG','HOAX','MOAT','DIRT','FI'])assert.ok(isPlayableWord(word,dic),style+' '+word);
+  for(const word of ['AD','ORG','DEF','TUG','HOAX','MOAT','DIRT'])assert.ok(isPlayableWord(word,dic),style+' '+word);
+  assert.equal(isPlayableWord('FI',dic),style==='classic');
   for(const word of ['COLOR','FAVOR','CENTER','ORGANIZE','TRAVELING'])assert.ok(!dic.has(word),style+' '+word);
  }
 });
@@ -193,14 +196,15 @@ test('offline source and primary UK loader are versioned and installed safely',(
  const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
  const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
  for(const source of [app,worker])assert.match(source,/loadBritishWords/);
- assert.match(app,/dictionary=createLegalDictionary\(words,game.playStyle\)/);
+ assert.match(app,/dictionary=createLegalDictionary\(words,game.playStyle,game.everydayShortWords\)/);
  assert.match(html,/Game version 1\.19/);
- assert.match(sw,/letterloom-offline-v20/);
+ assert.match(sw,/letterloom-offline-v21/);
  assert.match(sw,/letterloom-uk-dictionary-v1\.9/,'service worker must preserve cached UK word list');
- for(const url of ['engine.js','uk-dictionary.js','dictionary.txt','everyday-words.txt','bot-words.txt'])
-  assert.ok(sw.includes(`./${url}?v=1.9.0`),url);
- assert.ok(sw.includes('./app.js?v=1.19.0'));
- for(const url of ['bot.js','bot.worker.js','bot-familiarity.js'])assert.ok(sw.includes(`./${url}?v=1.19.0`),url);
+ for(const url of ['engine.js','uk-dictionary.js'])assert.ok(sw.includes(`./${url}?v=1.20.0`),url);
+ for(const url of ['dictionary.txt','everyday-words.txt','bot-words.txt'])assert.ok(sw.includes(`./${url}?v=1.9.0`),url);
+ assert.ok(sw.includes('./app.js?v=1.20.0'));
+ for(const url of ['bot.js','bot.worker.js'])assert.ok(sw.includes(`./${url}?v=1.20.0`),url);
+ assert.ok(sw.includes('./bot-familiarity.js?v=1.19.0'));
  assert.ok(sw.includes('./rack-order.js?v=1.15.0'));
  assert.ok(sw.includes('./word-lookup.js?v=1.19.0'));
  assert.match(app,/endgame-breakdown/);

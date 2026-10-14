@@ -1,3 +1,9 @@
+# Letterloom v1.20 — Everyday Short Words
+
+New Relaxed matches default to **Everyday Short Words**, a selectable option on the New game screen. Both players use the same rules for every word formed, including crossings. Familiar short forms like AD, AB, IN, GO and PO are allowed; EL, EF, LI, UT, QI and ZA are excluded when enabled. Most three-letter words remain accepted. Classic uses the full list.
+
+Existing saved games keep their previous word rules. Begin a new Relaxed match to try this change. Cloudflare Pages will publish automatically from the GitHub main branch.
+
 # Letterloom v1.19 — A friendlier British-English computer opponent
 
 Letterloom v1.19 builds on v1.18. In **Relaxed** mode, the computer now looks at **every word created by a move**, including the little perpendicular words formed when tiles touch. It prefers familiar British English vocabulary over less familiar slang and specialist expressions when there is a legal alternative. **Classic** still favours strong-scoring moves.

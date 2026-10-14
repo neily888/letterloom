@@ -47,7 +47,7 @@ test('iPad-friendly arrangement controls and cache are present',()=>{
  const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
  assert.match(index,/id="arrange-button"/);
  assert.match(index,/id="rack-order-tip"/);
- assert.match(index,/Game version 1.19/);
+ assert.match(index,/Game version 1.20/);
  assert.match(app,/pointerdown/);assert.match(app,/pointermove/);assert.match(app,/pointerup/);
  assert.match(app,/swapRackTiles/);assert.match(app,/moveVisibleRackTile/);assert.match(app,/persist\(\)/);
  assert.match(css,/touch-action:none/);
