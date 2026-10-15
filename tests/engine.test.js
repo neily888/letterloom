@@ -197,13 +197,14 @@ test('offline source and primary UK loader are versioned and installed safely',(
  const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
  for(const source of [app,worker])assert.match(source,/loadBritishWords/);
  assert.match(app,/dictionary=createLegalDictionary\(words,game.playStyle,game.everydayShortWords\)/);
- assert.match(html,/Game version 1\.19/);
- assert.match(sw,/letterloom-offline-v21/);
- assert.match(sw,/letterloom-uk-dictionary-v1\.9/,'service worker must preserve cached UK word list');
- for(const url of ['engine.js','uk-dictionary.js'])assert.ok(sw.includes(`./${url}?v=1.20.0`),url);
- for(const url of ['dictionary.txt','everyday-words.txt','bot-words.txt'])assert.ok(sw.includes(`./${url}?v=1.9.0`),url);
- assert.ok(sw.includes('./app.js?v=1.20.0'));
- for(const url of ['bot.js','bot.worker.js'])assert.ok(sw.includes(`./${url}?v=1.20.0`),url);
+ assert.match(html,/Game version 1.21/);
+ assert.match(sw,/letterloom-offline-v22/);
+ assert.ok(!sw.includes('letterloom-uk-dictionary-v1.9'),'retired dictionary cache is not retained');
+ for(const url of ['engine.js','uk-dictionary.js'])assert.ok(sw.includes(`./${url}?v=1.21.0`),url);
+ assert.ok(sw.includes('./dictionary.txt?v=1.21.0'));
+ for(const url of ['everyday-words.txt','bot-words.txt'])assert.ok(sw.includes(`./${url}?v=1.9.0`),url);
+ assert.ok(sw.includes('./app.js?v=1.21.0'));
+ for(const url of ['bot.js','bot.worker.js'])assert.ok(sw.includes(`./${url}?v=1.21.0`),url);
  assert.ok(sw.includes('./bot-familiarity.js?v=1.19.0'));
  assert.ok(sw.includes('./rack-order.js?v=1.15.0'));
  assert.ok(sw.includes('./word-lookup.js?v=1.19.0'));
@@ -218,34 +219,24 @@ test('offline fallback has no non-letter entries or duplicates',()=>{
 });
 
 
-test('cached British dictionary is loaded without an internet request', async()=>{
- const beforeCaches=globalThis.caches, beforeFetch=globalThis.fetch;
- const words=[];
- for(let i=0;i<76000;i++){
-  let n=i,word='';for(let j=0;j<4;j++){word=String.fromCharCode(65+n%26)+word;n=Math.floor(n/26);}
-  words.push(word);
- }
- globalThis.caches={open:async()=>({match:async()=>new Response(words.join('\n'))})};
- globalThis.fetch=async()=>{throw Error('Remote fetch must not be needed when cached');};
+test('the complete master list is loaded from the app without external services',async()=>{
+ const savedFetch=globalThis.fetch;
+ const master=readFileSync(new URL('../dictionary.txt',import.meta.url),'utf8');
+ const seen=[];
+ globalThis.fetch=async url=>{seen.push(String(url));return new Response(master,{status:200});};
  try{
-  const r=await loadBritishWords();
-  assert.equal(r.source,'British English');
-  assert.equal(r.cached,true);
-  assert.equal(r.words.size,76000);
- }finally{globalThis.caches=beforeCaches;globalThis.fetch=beforeFetch;}
+  const result=await loadBritishWords();
+  assert.equal(result.words.size,158807);
+  assert.equal(result.source,'Letterloom British English v1.21');
+  assert.equal(seen.length,1);
+  assert.ok(seen[0].includes('dictionary.txt?v=1.21.0'));
+  assert.ok(!seen[0].startsWith('https://raw.githubusercontent.com/'));
+ }finally{globalThis.fetch=savedFetch;}
 });
 
-test('when online UK dictionary cannot be reached, built-in British fallback loads',async()=>{
- const beforeCaches=globalThis.caches,beforeFetch=globalThis.fetch;
- globalThis.caches=undefined;
- const fallback='COLOUR\nCENTRE\nAD\nORG\nTUG\n';
- globalThis.fetch=async url=>{
-  if(String(url).includes('dictionary.txt?v=1.9.0'))return new Response(fallback,{status:200});
-  throw Error('Simulated offline');
- };
- try{
-  const r=await loadBritishWords();
-  assert.equal(r.source,'British English (offline fallback)');
-  for(const word of ['COLOUR','CENTRE','ORG','AD'])assert.ok(r.words.has(word));
- }finally{globalThis.caches=beforeCaches;globalThis.fetch=beforeFetch;}
+test('bundled dictionary does not silently switch to another list on failed load',async()=>{
+ const savedFetch=globalThis.fetch;
+ globalThis.fetch=async()=>{throw Error('App bundle missing')};
+ try{await assert.rejects(loadBritishWords(),/App bundle missing/)}
+ finally{globalThis.fetch=savedFetch}
 });

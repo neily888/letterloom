@@ -1,6 +1,6 @@
-import {SIZE, PREMIUM, CENTER, createGame, evaluateMove, commitMove, takePass, shuffle, LETTER_POINTS, createLegalDictionary} from './engine.js?v=1.20.0';
-import {findBotMove, findQuickBotMove} from './bot.js?v=1.20.0';
-import {loadBritishWords} from './uk-dictionary.js?v=1.20.0';
+import {SIZE, PREMIUM, CENTER, createGame, evaluateMove, commitMove, takePass, shuffle, LETTER_POINTS, createLegalDictionary} from './engine.js?v=1.21.0';
+import {findBotMove, findQuickBotMove} from './bot.js?v=1.21.0';
+import {loadBritishWords} from './uk-dictionary.js?v=1.21.0';
 import {wordsAtCell, createDefinitionLookup} from './word-lookup.js?v=1.19.0';
 import {moveVisibleRackTile, nearestRackSlot, rackShiftOffsets, swapRackTiles} from './rack-order.js?v=1.15.0';
 import {movePendingTile, returnPendingTile} from './board-placement.js?v=1.16.0';
@@ -11,7 +11,7 @@ const $ = id => document.getElementById(id);
 const STORAGE_KEY = 'letterloom-match-v1';
 const GAME_URL = new URL('.', import.meta.url);
 let dictionary = null;
-let dictionaryInfo = 'British English';
+let dictionaryInfo = 'Letterloom British English v1.21';
 let game = restore() || createGame('solo', 'relaxed');
 let selectedId = null;
 let arranging = false;
@@ -653,7 +653,7 @@ $('modal').addEventListener('click',event=>{
     clearTimeout(botTimeout);botTimeout=null;
     hintWorker?.terminate();hintWorker=null;hintWorking=false;clearHint();
     stopComputerHighlight();
-    game=createGame(newMode,newStyle,newShortWords);thinking=false;privacy=false;selectedId=null;arranging=false;arrangeFirstId=null;dictionary=null;dictionaryInfo='British English';closeModal();persist();render();notify('Fresh board, fresh possibilities!');loadDictionary();
+    game=createGame(newMode,newStyle,newShortWords);thinking=false;privacy=false;selectedId=null;arranging=false;arrangeFirstId=null;dictionary=null;dictionaryInfo='Letterloom British English v1.21';closeModal();persist();render();notify('Fresh board, fresh possibilities!');loadDictionary();
   }else if(action==='new-from-end'){closeModal();openModal('new');}
   else if(action==='restart-from-bot'){modalType=null;$('modal-backdrop').hidden=true;openModal('new');}
   else if(action==='retry-bot'){modalType=null;$('modal-backdrop').hidden=true;runBot();}
