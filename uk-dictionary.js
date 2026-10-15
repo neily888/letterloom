@@ -115,6 +115,6 @@ export async function loadBritishWords(){
   if(!response.ok)throw Error('The bundled British English dictionary is unavailable.');
   const raw=await response.text();
   const words=new Set(raw.trim().split(/\s+/));
-  if(words.size!==158873)throw Error('The bundled British English dictionary is incomplete.');
+  if(words.size!==158807)throw Error('The bundled British English dictionary is incomplete.');
   return {words,source:'Letterloom British English v1.21',cached:true};
 }
