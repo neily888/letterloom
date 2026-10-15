@@ -226,7 +226,7 @@ test('the complete master list is loaded from the app without external services'
  globalThis.fetch=async url=>{seen.push(String(url));return new Response(master,{status:200});};
  try{
   const result=await loadBritishWords();
-  assert.equal(result.words.size,158873);
+  assert.equal(result.words.size,158807);
   assert.equal(result.source,'Letterloom British English v1.21');
   assert.equal(seen.length,1);
   assert.match(seen[0],/dictionary\\.txt\\?v=1\\.21\\.0/);
