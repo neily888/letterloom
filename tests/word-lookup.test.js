@@ -81,12 +81,12 @@ test('v1.13 preserves app stylesheet caching and preserves spacing in crossing l
  const script=readFileSync(new URL('../app.js',import.meta.url),'utf8');
  const css=readFileSync(new URL('../styles.css',import.meta.url),'utf8');
  const worker=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
- assert.match(page,/styles\.css\?v=1\.19\.0/);
+ assert.match(page,/styles\.css\?v=1\.21\.0/);
  assert.match(script,/definition-choice-direction/);
  assert.match(script,/· \$\{direction===/);
  assert.match(css,/\.definition-choice \.definition-choice-direction/);
  assert.match(worker,/letterloom-offline-v22/);
- assert.match(worker,/styles\.css\?v=1\.19\.0/);
+ assert.match(worker,/styles\.css\?v=1\.21\.0/);
 });
 
 
