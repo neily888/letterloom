@@ -199,7 +199,7 @@ test('offline source and primary UK loader are versioned and installed safely',(
  assert.match(app,/dictionary=createLegalDictionary\(words,game.playStyle,game.everydayShortWords\)/);
  assert.match(html,/Game version 1.21/);
  assert.match(sw,/letterloom-offline-v22/);
- assert.match(sw,/letterloom-uk-dictionary-v1\.9/,'service worker must preserve cached UK word list');
+ assert.ok(!sw.includes('letterloom-uk-dictionary-v1.9'),'retired dictionary cache is not retained');
  for(const url of ['engine.js','uk-dictionary.js'])assert.ok(sw.includes(`./${url}?v=1.21.0`),url);
  assert.ok(sw.includes('./dictionary.txt?v=1.21.0'));
  for(const url of ['everyday-words.txt','bot-words.txt'])assert.ok(sw.includes(`./${url}?v=1.9.0`),url);
@@ -229,7 +229,7 @@ test('the complete master list is loaded from the app without external services'
   assert.equal(result.words.size,158807);
   assert.equal(result.source,'Letterloom British English v1.21');
   assert.equal(seen.length,1);
-  assert.match(seen[0],/dictionary\\.txt\\?v=1\\.21\\.0/);
+  assert.ok(seen[0].includes('dictionary.txt?v=1.21.0'));
   assert.ok(!seen[0].startsWith('https://raw.githubusercontent.com/'));
  }finally{globalThis.fetch=savedFetch;}
 });
