@@ -85,7 +85,7 @@ test('v1.13 preserves app stylesheet caching and preserves spacing in crossing l
  assert.match(script,/definition-choice-direction/);
  assert.match(script,/· \$\{direction===/);
  assert.match(css,/\.definition-choice \.definition-choice-direction/);
- assert.match(worker,/letterloom-offline-v21/);
+ assert.match(worker,/letterloom-offline-v22/);
  assert.match(worker,/styles\.css\?v=1\.19\.0/);
 });
 
@@ -166,7 +166,7 @@ test('v1.13 versioned assets and no word-list changes',()=>{
  const app=readFileSync(new URL('../app.js',import.meta.url),'utf8');
  assert.match(html,/Game version 1.21/);
  assert.match(html,/word.*game/);
- assert.match(sw,/letterloom-offline-v21/);
+ assert.match(sw,/letterloom-offline-v22/);
  assert.match(sw,/word-lookup.js\?v=1.19.0/);
  assert.match(app,/word-lookup.js\?v=1.19.0/);
  const words=readFileSync(new URL('../dictionary.txt',import.meta.url),'utf8');
