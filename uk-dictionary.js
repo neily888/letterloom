@@ -1,7 +1,8 @@
-/* Letterloom British English dictionary source and offline cache (v1.9).
- * Primary source: LibreOffice en_GB Hunspell (LGPL 2.1), fetched on first
- * online visit and converted into playable, unhyphenated word forms.
- * The generated word list is cached on-device for subsequent offline games.
+/* Letterloom British English v1.21 master dictionary.
+ * One bundled, deterministic offline word list combines LibreOffice en_GB
+ * Hunspell expansion with Letterloom's previously bundled words.
+ * Licence notices: see DICTIONARY-SOURCES.md.
+ * Retain expandBritishHunspell for regression checks and future rebuilds.
  */
 import {TWO_LETTER_WORDS} from './engine.js?v=1.20.0';
 
@@ -107,33 +108,13 @@ HEMOGLOBIN HEMORRHAGE HEMORRHAGING ANEMIA LEUKEMIA
 SPECTER SPECTERS CALIBER CALIBERS SABER SABERS
 MOLD MOLDS MOLDED MOLDING PLOW PLOWS PLOWED PLOWING`.split(/\s+/));
 
-async function downloadText(url){
-  const ctrl=new AbortController();
-  const timer=setTimeout(()=>ctrl.abort(),9500);
-  try{const r=await fetch(url,{signal:ctrl.signal,mode:'cors'});if(!r.ok)throw Error(`UK source HTTP ${r.status}`);return await r.text();}
-  finally{clearTimeout(timer);}
-}
+// Every match loads the same bundled list: no remote calls, cache variance or
+// dependence on the network when opening or starting a game.
 export async function loadBritishWords(){
-  let store=null;
-  if(typeof caches!=='undefined'){
-    try{store=await caches.open(STORE);const saved=await store.match(KEY);
-      if(saved){const text=await saved.text();const words=new Set(text.trim().split(/\s+/));
-        if(words.size>75000)return {words,source:'British English',cached:true};}
-    }catch{store=null;}
-  }
-  try{
-    if(typeof navigator!=='undefined' && navigator.onLine===false)throw Error('Offline');
-    const [dic,aff]=await Promise.all([downloadText(UK_DIC),downloadText(UK_AFF)]);
-    if(dic.length<500000 || aff.length<10000)throw Error('Incomplete UK dictionary');
-    const words=expandBritishHunspell(dic,aff);
-    if(words.size<75000)throw Error('Too few generated UK entries');
-    try{await store?.put(KEY,new Response([...words].sort().join('\n')+'\n',{headers:{'Content-Type':'text/plain; charset=utf-8'}}));}catch{/* cache quota not fatal */}
-    return {words,source:'British English',cached:false};
-  }catch(error){
-    // Self-contained fallback supports fully offline installs and blocked GitHub.
-    const response=await fetch(new URL('./dictionary.txt?v=1.9.0',import.meta.url));
-    if(!response.ok)throw Error('The offline dictionary is unavailable.');
-    const words=new Set((await response.text()).trim().split(/\s+/));
-    return {words,source:'British English (offline fallback)',cached:false};
-  }
+  const response=await fetch(new URL('./dictionary.txt?v=1.21.0',import.meta.url));
+  if(!response.ok)throw Error('The bundled British English dictionary is unavailable.');
+  const raw=await response.text();
+  const words=new Set(raw.trim().split(/\s+/));
+  if(words.size!==158873)throw Error('The bundled British English dictionary is incomplete.');
+  return {words,source:'Letterloom British English v1.21',cached:true};
 }
