@@ -1,3 +1,11 @@
+# Letterloom v1.21 — One bundled British English dictionary
+
+The game's complete dictionary is now a **single, versioned, fully offline** file: **158,873 unique words, 1,603,334 bytes** (UTF-8 plain text). This combines the previous bundled fallback list with the expanded LibreOffice en_GB Hunspell word list, removing duplicates and explicitly disallowed American-only spellings.
+
+There is **no external dictionary download at game startup or when creating a new game**. The bundled file is cached by the service worker for offline play. Exactly the same master list supports humans, the computer and hints. Relaxed mode's Everyday Short Words preference is still applied evenly to both players. The familiar-word preference for the computer remains intact. Existing saved matches, including their selected word-rule preference, are preserved.
+
+See [DICTIONARY-SOURCES.md](DICTIONARY-SOURCES.md) for provenance, rebuilding, and licensing.
+
 # Letterloom v1.20 — Everyday Short Words
 
 New Relaxed matches default to **Everyday Short Words**, a selectable option on the New game screen. Both players use the same rules for every word formed, including crossings. Familiar short forms like AD, AB, IN, GO and PO are allowed; EL, EF, LI, UT, QI and ZA are excluded when enabled. Most three-letter words remain accepted. Classic uses the full list.
