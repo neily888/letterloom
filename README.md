@@ -1,6 +1,6 @@
 # Letterloom v1.21 — One bundled British English dictionary
 
-The game's complete dictionary is now a **single, versioned, fully offline** file: **158,873 unique words, 1,603,334 bytes** (UTF-8 plain text). This combines the previous bundled fallback list with the expanded LibreOffice en_GB Hunspell word list, removing duplicates and explicitly disallowed American-only spellings.
+The game's complete dictionary is now a **single, versioned, fully offline** file: **158,807 unique words, 1,603,136 bytes** (UTF-8 plain text). This combines the previous bundled fallback list with the expanded LibreOffice en_GB Hunspell word list, removing duplicates and explicitly disallowed American-only spellings.
 
 There is **no external dictionary download at game startup or when creating a new game**. The bundled file is cached by the service worker for offline play. Exactly the same master list supports humans, the computer and hints. Relaxed mode's Everyday Short Words preference is still applied evenly to both players. The familiar-word preference for the computer remains intact. Existing saved matches, including their selected word-rule preference, are preserved.
 
