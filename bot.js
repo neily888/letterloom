@@ -1,4 +1,4 @@
-import {SIZE, CENTER, evaluateMove, isPlayableWord} from './engine.js?v=1.20.0';
+import {SIZE, CENTER, evaluateMove, isPlayableWord} from './engine.js?v=1.21.0';
 import {assessMoveFamiliarity} from './bot-familiarity.js?v=1.19.0';
 
 const indexAt=(r,c)=>r*SIZE+c;
