@@ -1,5 +1,12 @@
 # Letterloom release notes
 
+## v1.21 — One consistent offline British dictionary
+- Bundled 158,873 distinct playable words; merged expanded LibreOffice en_GB and previous Letterloom fallback.
+- Removed runtime network download and alternate cache-dependent dictionary choices.
+- Word selection remains identical for both players; Everyday Short Words stays optional in Relaxed.
+- Existing match storage and rules preserved; service-worker offline cache version updated.
+
+
 ## v1.20 — Everyday Short Words
 - Optional shared short-word rules, on by default for new Relaxed matches.
 - Classic retains the comprehensive dictionary.
