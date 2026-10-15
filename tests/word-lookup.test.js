@@ -62,7 +62,7 @@ test('new version includes UI affordance and caches word lookup code offline',()
  const script=readFileSync(new URL('../app.js',import.meta.url),'utf8');
  const worker=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
  assert.match(page,/Tap a word on the board/);
- assert.match(page,/Game version 1.20/);
+ assert.match(page,/Game version 1.21/);
  assert.match(script,/wordsAtCell\(game.board,index,SIZE\)/);
  assert.match(script,/if\(game.board\[index\]\)\{showWordMeaningAt\(index\);return;\}/);
  assert.match(worker,/word-lookup.js\?v=1.19.0/);
@@ -164,7 +164,7 @@ test('v1.13 versioned assets and no word-list changes',()=>{
  const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
  const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
  const app=readFileSync(new URL('../app.js',import.meta.url),'utf8');
- assert.match(html,/Game version 1.20/);
+ assert.match(html,/Game version 1.21/);
  assert.match(html,/word.*game/);
  assert.match(sw,/letterloom-offline-v21/);
  assert.match(sw,/word-lookup.js\?v=1.19.0/);
@@ -239,7 +239,7 @@ test('v1.18: word discovery contains an accessible expand button, hidden panel, 
  assert.match(app,/currentDefinitionMeaning=null/);
  assert.match(css,/\.other-meanings-panel\[hidden\]\{display:none\}/);
  assert.match(sw,/word-lookup.js\?v=1.19.0/);
- assert.match(index,/Game version 1.20/);
+ assert.match(index,/Game version 1.21/);
 });
 
 test('v1.18: UT has a simple musical explanation',async()=>{
