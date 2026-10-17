@@ -58,7 +58,7 @@ test('installed PWA pre-caches the new preference code and versioned player file
  const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
  const app=readFileSync(new URL('../app.js',import.meta.url),'utf8');
  assert.match(sw,/bot-familiarity.js\?v=1\.19\.0/);
- assert.match(sw,/letterloom-offline-v22/);
+ assert.match(sw,/letterloom-offline-v24/);
  assert.match(app,/preferFamiliar/);
  assert.match(app,/familiarWords/);
 });
