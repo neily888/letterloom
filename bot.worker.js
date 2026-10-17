@@ -1,4 +1,4 @@
-import {findBotMove,findQuickBotMove} from './bot.js?v=1.22.0';
+import {findBotMove,findQuickBotMove,computerCandidateWords} from './bot.js?v=1.22.0';
 import {createLegalDictionary} from './engine.js?v=1.22.0';
 import {loadBritishWords} from './uk-dictionary.js?v=1.22.0';
 let dictionaryPromise;
@@ -14,7 +14,7 @@ self.onmessage=async({data})=>{
     else commonPromise??=fetchWords('./bot-words.txt?v=1.9.0');
     const [baseDictionary,words]=await Promise.all([dictionaryPromise,relaxed?everydayPromise:commonPromise]);
     const dictionary=createLegalDictionary(baseDictionary,data.game.playStyle,data.game.everydayShortWords);
-    const candidates=words.filter(w=>dictionary.has(w));
+    const candidates=computerCandidateWords(words,dictionary,relaxed);
     // Provide an immediately valid backup. If a slow device times out during
     // full move search, the app can play this rather than passing by mistake.
     if(data.type==='move'){
