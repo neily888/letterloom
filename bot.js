@@ -1,6 +1,13 @@
 import {SIZE, CENTER, evaluateMove, isPlayableWord} from './engine.js?v=1.22.0';
 import {assessMoveFamiliarity} from './bot-familiarity.js?v=1.19.0';
 
+// The computer favours familiar vocabulary, but must still be able to play
+// the same Relaxed-only short words as the human player.
+export function computerCandidateWords(words,dictionary,relaxed=false){
+  const candidates=relaxed?[...words,'QI','OZ']:words;
+  return [...new Set(candidates)].filter(word=>isPlayableWord(word,dictionary));
+}
+
 const indexAt=(r,c)=>r*SIZE+c;
 function makeTrie(words, dictionary){
   const root={next:new Map(),end:false};
