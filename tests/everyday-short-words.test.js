@@ -9,7 +9,10 @@ const original=createLegalDictionary(base,'classic');
 const tile=(id,letter)=>({id,letter,points:1,blank:false});
 test('Relaxed keeps familiar words, but excludes obscure short words',()=>{
  for(const word of ['AB','AD','AT','DO','GO','IN','PO','WE']){assert.ok(EVERYDAY_TWO_LETTER_WORDS.has(word));assert.ok(everyday.has(word),word)}
- for(const word of ['EL','EF','LI','UT','QI','ZA']){assert.ok(original.has(word),word);assert.ok(!everyday.has(word),word)}
+ assert.ok(everyday.has('QI'),'QI must be available in Relaxed');
+ assert.ok(everyday.has('OZ'),'OZ is a Relaxed-only house rule');
+ assert.ok(!original.has('OZ'),'OZ must remain excluded from Classic');
+ for(const word of ['EL','EF','LI','UT','ZA']){assert.ok(original.has(word),word);assert.ok(!everyday.has(word),word)}
  for(const word of ['CAT','DOG','SUN','ORG','HOAX','TUG'])assert.ok(everyday.has(word),word);
 });
 test('Classic and disabled preference retain full word list',()=>{
@@ -41,5 +44,5 @@ test('Shared word rules wired into app, hint worker and install cache',()=>{
  assert.match(app,/id="short-words-checkbox"/);
  assert.match(app,/dictionary=createLegalDictionary\(words,game.playStyle,game.everydayShortWords\)/);
  assert.match(worker,/createLegalDictionary\(baseDictionary,data.game.playStyle,data.game.everydayShortWords\)/);
- assert.match(sw,/letterloom-offline-v22/);
+ assert.match(sw,/letterloom-offline-v23/);
 });
