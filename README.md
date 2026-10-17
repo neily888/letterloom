@@ -1,4 +1,8 @@
-# Letterloom v1.22.3 — Roman numerals corrected
+# Letterloom v1.22.4 — Red unplayed tile outlines and gentle correction cues
+
+Newly placed (unplayed) board tiles now have a thicker red outline. If they cannot form a single row or column, the likely misplaced tile(s) pulse gently three times and a clear message explains how to tap back to the rack or drag into position. Ambiguous placements are all highlighted instead of guessing. The pulse is disabled with Reduced Motion, leaving a stronger static border. Board size, existing games, scores and dictionary rules are unchanged.
+
+# Earlier: v1.22.3 — Roman numerals corrected
 
 Roman numerals such as III, VII, VIII, XIII and XXXIX are excluded from new moves for both people and computer players in all play styles. Ordinary dictionary words sharing a Roman-numeral spelling (for example XI, MIX and DIV) remain permitted. Existing saved games and scores, including earlier numeral moves, are unchanged; looking up a previously played numeral now explains that the word is no longer accepted. QI, Relaxed-only OZ, full-size boards and the prominent Your turn indicator are unchanged.
 

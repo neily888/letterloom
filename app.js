@@ -3,7 +3,7 @@ import {findBotMove, findQuickBotMove, computerCandidateWords} from './bot.js?v=
 import {loadBritishWords} from './uk-dictionary.js?v=1.22.3';
 import {wordsAtCell, createDefinitionLookup} from './word-lookup.js?v=1.22.0';
 import {moveVisibleRackTile, nearestRackSlot, rackShiftOffsets} from './rack-order.js?v=1.15.0';
-import {movePendingTile, returnPendingTile} from './board-placement.js?v=1.16.0';
+import {movePendingTile, returnPendingTile, misplacedPendingIndices} from './board-placement.js?v=1.22.4';
 import {getLastComputerMove} from './last-move.js?v=1.17.0';
 import {currentTurnText} from './turn-status.js?v=1.22.2';
 
@@ -289,6 +289,7 @@ function tileHTML(tile){
 }
 function renderBoard(){
   const pending = new Map(game.pending.map(p=>[p.index,p.tile]));
+  const misplaced=new Set(misplacedPendingIndices(game.pending,SIZE));
   const highlighted=new Set(computerHighlight==='none'?[]:(getLastComputerMove(game)?.indices || []));
   const label={TW:'Triple word',DW:'Double word',TL:'Triple letter',DL:'Double letter'};
   let html='';
@@ -296,7 +297,7 @@ function renderBoard(){
     const fixed=game.board[i], fresh=pending.get(i), tile=fresh || fixed;
     const premium=PREMIUM[i], isCenter=i===CENTER;
     const row=Math.floor(i/SIZE)+1,col=i%SIZE+1;
-    const cls=['square',premium.toLowerCase(),isCenter?'center':'',tile?'has-tile':'',fixed?'is-definition-tile':'',fresh?'is-pending':'',highlighted.has(i)?'is-computer-highlight':'',hintIndices.includes(i)&&!tile?'is-hint':''].filter(Boolean).join(' ');
+    const cls=['square',premium.toLowerCase(),isCenter?'center':'',tile?'has-tile':'',fixed?'is-definition-tile':'',fresh?'is-pending':'',misplaced.has(i)?'is-misaligned':'',highlighted.has(i)?'is-computer-highlight':'',hintIndices.includes(i)&&!tile?'is-hint':''].filter(Boolean).join(' ');
     const description=tile?`${tile.letter}, ${tile.points} points${fresh?', not yet played: drag to move or tap to return to rack':', tap to see word meaning'}`:hintIndices.includes(i)?'hint: place a letter here':label[premium]||'empty';
     html+=`<button type="button" class="${cls}" data-index="${i}" role="gridcell" aria-label="Row ${row}, column ${col}: ${description}" title="${description}">${tile?tileHTML(tile):`<span class="bonus-label">${premium || ''}</span>`}</button>`;
   }
@@ -354,7 +355,13 @@ function renderPreview(){
     announce(`Nice play! ${analysis.words.map(w=>w.word).join(' + ')} for ${analysis.score} points.`);
   }else{
     potential.innerHTML='—<small>POINTS</small>';preview.textContent=analysis.reason;
-    announce(analysis.reason);
+    if(analysis.reason==='Tiles must form one row or one column.'){
+      const misplaced=misplacedPendingIndices(game.pending,SIZE);
+      const all=misplaced.length===game.pending.length;
+      announce(all
+        ?'The red-outlined letters are not all in one row or column. Drag them into one line, or tap a tile to return it to your rack.'
+        :`Check the ${misplaced.length===1?'red-outlined letter':'red-outlined letters'} outside your word. Tap to return to the rack, or drag to move.`);
+    }else announce(analysis.reason);
   }
   $('move-feedback').classList.toggle('invalid',!!(analysis&&!analysis.valid&&game.pending.length));
   play.disabled=!humanTurn()||!analysis?.valid;

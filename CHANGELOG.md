@@ -1,5 +1,12 @@
 # Letterloom changelog
 
+## v1.22.4 — Clearer unplayed tiles and gentle alignment guidance
+
+- Make every unplayed tile on the board clearly identifiable with a thicker red outline.
+- If tentative letters are out of line, softly pulse the misplaced tile(s) three times and explain how to move them or tap them back into the rack.
+- When the intended line is ambiguous, highlight all tentative tiles instead of guessing. Respect the device's Reduce Motion preference.
+- Keep the full-size board, tile values, gameplay rules, scores and saved-game format unchanged.
+
 ## v1.22.3 — Roman numerals are not playable words
 
 - Reject canonical Roman numeral spellings (including VII, VIII, XII, XIII, XIV and XXXIX) for both people and the computer in Classic and Relaxed Play, with Everyday Short Words on or off.
