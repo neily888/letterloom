@@ -1,7 +1,7 @@
 name: Letterloom tests
 on:
   push:
-    branches: [main, feature/bundled-uk-dictionary-v1.21]
+    branches: [main, feature/relaxed-oz-qi-v1.22]
   pull_request:
     branches: [main]
 jobs:
