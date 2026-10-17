@@ -1,3 +1,7 @@
+# Letterloom v1.22.3 — Roman numerals corrected
+
+Roman numerals such as III, VII, VIII, XIII and XXXIX are excluded from new moves for both people and computer players in all play styles. Ordinary dictionary words sharing a Roman-numeral spelling (for example XI, MIX and DIV) remain permitted. Existing saved games and scores, including earlier numeral moves, are unchanged; looking up a previously played numeral now explains that the word is no longer accepted. QI, Relaxed-only OZ, full-size boards and the prominent Your turn indicator are unchanged.
+
 # Letterloom v1.22.2 — Clear turns and word validation
 
 A high-contrast **Your turn** indicator makes the next player obvious, with clear computer and pass-and-play names. Roman numeral **III** is not playable in either Classic or Relaxed, including as a crossing word or by the computer. The board size, existing saves, scores and other word rules remain unchanged.
