@@ -174,6 +174,7 @@ export function evaluateMove(game,pending=game.pending,dictionary=null){
   const hasOldTiles=game.board.some(Boolean);
   if(!hasOldTiles && !overlay.has(CENTER)) return fail('Your opening word must cover the centre star.');
   if(hasOldTiles && !words.some(w=>w.cells.some(cell=>!cell.fresh))) return fail('Connect your word to a letter already on the board.');
+  if(words.some(w=>NON_PLAYABLE_WORDS.has(w.word)))return fail('III is a Roman numeral, not a playable word.');
   if(game.playStyle==='relaxed' && game.everydayShortWords){
     const excluded=words.filter(w=>!isEverydayShortWord(w.word));
     if(excluded.length)return fail(`${excluded.map(w=>w.word).join(', ')} ${excluded.length===1?'is':'are'} excluded by Everyday Short Words. You can switch this off for a new match.`);
