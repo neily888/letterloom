@@ -1,6 +1,6 @@
 {
   "name": "letterloom-pwa",
-  "version": "1.22.0",
+  "version": "1.22.1",
   "private": true,
   "type": "module",
   "description": "An offline-first word board game with pass-and-play and computer opponent",
