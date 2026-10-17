@@ -205,3 +205,78 @@
   .move-feedback{min-height:0;font-size:11px;line-height:1.25}
   .secondary-action,.primary-action{min-height:44px}
 }
+
+
+/* v1.22.1: Keep the full-width board. Use the space around it, not the tiles. */
+@media (min-width:601px) and (max-width:980px){
+  /* Do not reduce the portrait iPad board to make room for other UI. */
+  .game-area{width:min(100%,710px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);
+    grid-template-areas:"heading heading" "scores scores" "board board" "status last" "racktools racktools" "rack rack" "actions actions";
+    column-gap:9px;row-gap:0}
+  .game-heading{grid-area:heading;min-width:0;margin:0 2px 5px;align-items:center}
+  .game-heading .accent-eyebrow{display:none}
+  .game-heading h2{font-size:24px;line-height:1.1;margin:0;letter-spacing:-1px}
+  .turn-badges{gap:6px;flex-wrap:nowrap}
+  .style-indicator{font-size:12px;padding:5px 9px}
+  .turn-pill{font-size:11px;padding:5px 9px}
+  .mobile-scores{grid-area:scores;gap:7px;margin:0 0 5px}
+  .mobile-score{font-size:14px;padding:5px 10px;min-height:38px}
+  .mobile-score strong{font-size:21px}
+  .board-surround{grid-area:board;width:100%}
+  .square{font-size:clamp(9px,1.25vw,11px)}
+  .square .bonus-label{font-size:inherit}
+  .board .letter-tile{font-size:clamp(17px,2.35vw,23px);font-weight:900}
+  .board .letter-tile .value{font-size:clamp(8px,1.1vw,10px)}
+  .game-status-line{grid-area:status;min-width:0;min-height:44px;padding:3px 2px;gap:5px;font-size:13px}
+  .game-status-line .turn-indicator{gap:5px}
+  .game-status-line .tile-count{white-space:nowrap}
+  .last-move-row{grid-area:last;justify-self:stretch;min-width:0;min-height:44px;padding:2px 0;flex-wrap:nowrap;gap:6px}
+  .last-move-row .last-move-note{min-width:0;flex:1 1 auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px}
+  .last-move-button{flex:none;min-height:44px;padding:8px 10px;font-size:12px}
+  /* This instruction is retained in Help and the board's accessible labels. */
+  .definition-tip{display:none}
+  .rack-header{grid-area:racktools;padding:0 2px 3px;gap:6px;flex-wrap:nowrap}
+  .rack-header .eyebrow{font-size:12px;letter-spacing:1.4px}
+  .rack-caption{display:none}
+  .rack-tools{gap:6px;flex-wrap:nowrap}
+  .rack-tools .tiny-action{font-size:14px;min-height:44px;padding:9px 8px}
+  .shuffle-action{font-size:15px;min-width:112px;min-height:44px;padding:9px 12px}
+  .rack-wrap{grid-area:rack;padding:5px 9px}
+  .rack{gap:8px}
+  .rack-tile{font-size:clamp(27px,3.7vw,33px)}
+  .move-bottom{grid-area:actions;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:5px;align-items:center}
+  .move-feedback,.relaxed-layout .move-feedback{min-width:0;flex:none;font-size:13px;line-height:1.25}
+  .action-group{gap:6px}
+  .secondary-action,.primary-action,.relaxed-layout .secondary-action,.relaxed-layout .primary-action{font-size:15px;min-height:44px;padding:10px 13px}
+  .site-header{height:58px}
+  .layout{padding-top:6px}
+}
+/* The portrait iPhone board stays edge-to-edge; enlarge writing, not the board. */
+@media (max-width:600px){
+  .square{font-size:clamp(8px,1.9vw,9px)}
+  .board .letter-tile{font-size:clamp(16px,4.4vw,19px);font-weight:900}
+  .board .letter-tile .value{font-size:7px}
+  .game-status-line{font-size:13px}
+  .last-move-row .last-move-note{font-size:12.5px;line-height:1.3}
+  .last-move-button{font-size:12px}
+  .rack-header .eyebrow{font-size:11px}
+  .rack-tools .tiny-action{font-size:12px}
+  .shuffle-action{font-size:14px}
+  .mobile-score{font-size:13px}
+  .mobile-score strong{font-size:19px}
+  .secondary-action,.primary-action,.relaxed-layout .secondary-action,.relaxed-layout .primary-action{font-size:15px}
+}
+/* Keep words and controls readable on laptop/Chromebook without extra gaps. */
+@media (min-width:981px){
+  .game-heading .accent-eyebrow{display:none}
+  .game-heading h2{margin:0}
+  .board .letter-tile{font-size:clamp(15px,1.45vw,23px);font-weight:900}
+  .board .letter-tile .value{font-size:clamp(8px,.72vw,10px)}
+  .square{font-size:clamp(9px,.85vw,12px)}
+  .game-status-line,.last-move-row .last-move-note{font-size:13px}
+  .rack-tools .tiny-action{font-size:14px}
+  .shuffle-action{font-size:15px}
+  .definition-tip{display:none}
+  .rack-header{padding-bottom:4px}
+  .move-bottom{margin-top:6px}
+}

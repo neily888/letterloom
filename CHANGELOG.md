@@ -1,5 +1,13 @@
 # Letterloom changelog
 
+## v1.22.1 — Full-size iPad board with larger text
+
+- Keep the 15 × 15 board at its full available width on iPhones and portrait iPads rather than reducing it to make controls fit.
+- Place turn information and the previous move on the same compact row on iPads, while preserving the Show last move action.
+- Reduce redundant headings and instructional text without removing the Help or word-meaning features.
+- Increase board letter weight and size, premium-square labels, score text and button lettering; preserve roomy rack and tap targets.
+- Leave game state, saving and word rules untouched. Refresh the offline stylesheet cache.
+
 ## v1.22 — Compact play screen and shared Relaxed short words
 
 - QI and OZ are available to both human and computer in Relaxed, even with Everyday Short Words enabled. OZ remains a Relaxed-only house rule.

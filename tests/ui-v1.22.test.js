@@ -25,7 +25,20 @@ test('portrait iPhone, iPad and laptop sizing rules are present',()=>{
 test('v1.22 keeps the original match storage and offline resources',()=>{
  const app=read('app.js'),html=read('index.html'),sw=read('sw.js');
  assert.match(app,/letterloom-match-v1/);
- assert.match(html,/Game version 1.22/);
- assert.match(sw,/letterloom-offline-v24/);
+ assert.match(html,/Game version 1.22.1/);
+ assert.match(sw,/letterloom-offline-v25/);
  assert.match(sw,/\.\/word-lookup\.js\?v=1\.22\.0/);
+});
+
+test('v1.22.1 keeps portrait board width and gives text room in surrounding rows',()=>{
+ const css=read('styles.css'),index=read('index.html'),sw=read('sw.js');
+ assert.match(css,/v1\.22\.1: Keep the full-width board/);
+ assert.match(css,/\.game-area\{width:min\(100%,710px\);display:grid/);
+ assert.match(css,/grid-template-areas:"heading heading" "scores scores" "board board" "status last" "racktools racktools" "rack rack" "actions actions"/);
+ assert.match(css,/\.last-move-row\{grid-area:last/);
+ assert.match(css,/\.board \.letter-tile\{font-size:clamp\(17px,2\.35vw,23px\);font-weight:900\}/);
+ assert.match(css,/@media \(max-width:600px\)/);
+ assert.match(index,/styles\.css\?v=1\.22\.1/);
+ assert.match(sw,/styles\.css\?v=1\.22\.1/);
+ assert.doesNotMatch(index,/id="arrange-button"/);
 });
