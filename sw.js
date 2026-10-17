@@ -1,5 +1,5 @@
-const VERSION='letterloom-offline-v24';
-const ASSETS=['./','./index.html','./styles.css?v=1.22.0','./app.js?v=1.22.0','./rack-order.js?v=1.15.0','./board-placement.js?v=1.16.0','./last-move.js?v=1.17.0','./word-lookup.js?v=1.22.0','./bot-familiarity.js?v=1.19.0','./engine.js?v=1.22.0','./uk-dictionary.js?v=1.22.0','./bot.js?v=1.22.0','./bot.worker.js?v=1.22.0','./dictionary.txt?v=1.21.0','./everyday-words.txt?v=1.9.0','./bot-words.txt?v=1.9.0','./manifest.webmanifest','./assets/icon.svg','./assets/icon-192.png','./assets/icon-512.png'];
+const VERSION='letterloom-offline-v25';
+const ASSETS=['./','./index.html','./styles.css?v=1.22.1','./app.js?v=1.22.0','./rack-order.js?v=1.15.0','./board-placement.js?v=1.16.0','./last-move.js?v=1.17.0','./word-lookup.js?v=1.22.0','./bot-familiarity.js?v=1.19.0','./engine.js?v=1.22.0','./uk-dictionary.js?v=1.22.0','./bot.js?v=1.22.0','./bot.worker.js?v=1.22.0','./dictionary.txt?v=1.21.0','./everyday-words.txt?v=1.9.0','./bot-words.txt?v=1.9.0','./manifest.webmanifest','./assets/icon.svg','./assets/icon-192.png','./assets/icon-512.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(VERSION).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
 });
