@@ -63,5 +63,5 @@ test('turn indicator has high-contrast text and announces changes without shrink
  assert.doesNotMatch(app,/\`\$\{game\.players\[game\.current\]\.name\}'s turn\`/);
  assert.match(app,/letterloom-match-v1/);
  assert.match(sw,/turn-status\.js\?v=1\.22\.2/);
- assert.match(sw,/letterloom-offline-v26/);
+ assert.match(sw,/letterloom-offline-v27/);
 });
