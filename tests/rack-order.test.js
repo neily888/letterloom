@@ -47,7 +47,7 @@ test('iPad-friendly rack dragging and cache are present',()=>{
  const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
  assert.doesNotMatch(index,/id="arrange-button"/);
  assert.match(index,/id="shuffle-button"/);
- assert.match(index,/Game version 1.22.2/);
+ assert.match(index,/Game version 1.22.3/);
  assert.match(app,/pointerdown/);assert.match(app,/pointermove/);assert.match(app,/pointerup/);
  assert.doesNotMatch(app,/swapRackTiles/);assert.match(app,/moveVisibleRackTile/);assert.match(app,/persist\(\)/);
  assert.match(css,/touch-action:none/);
