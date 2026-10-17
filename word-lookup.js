@@ -69,6 +69,7 @@ export const OFFLINE_MEANINGS={
   OR:['conjunction','Used to offer an alternative or choice.'],
   OW:['exclamation','A cry of pain.'],
   OX:['noun','A large farm animal used for pulling heavy loads.'],
+  OZ:['abbreviation','Short for ounce, a unit of weight. In Letterloom this is a Relaxed Play house-rule word.'],
   PA:['noun','An informal word for father.'],
   SO:['adverb','To such a degree; also used to introduce a result.'],
   TA:['exclamation','An informal British way of saying thank you.'],
