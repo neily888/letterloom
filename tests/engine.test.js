@@ -40,7 +40,8 @@ test('classic has same dictionary but fully random draws',()=>{
  assert.equal(g.freeSwapUsed[0],false);
  assert.equal(createLegalDictionary(legal,'classic'),legal);
  assert.notEqual(createLegalDictionary(legal,'relaxed'),legal);
- assert.equal(createLegalDictionary(legal,'relaxed',false),legal);
+ assert.notEqual(createLegalDictionary(legal,'relaxed',false),legal);
+  assert.ok(createLegalDictionary(legal,'relaxed',false).has('OZ'));
  assert.ok(!createLegalDictionary(legal,'relaxed').has('ZA'));
 });
 test('CAT opens across centre and scores bonus correctly',()=>{
@@ -197,17 +198,17 @@ test('offline source and primary UK loader are versioned and installed safely',(
  const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
  for(const source of [app,worker])assert.match(source,/loadBritishWords/);
  assert.match(app,/dictionary=createLegalDictionary\(words,game.playStyle,game.everydayShortWords\)/);
- assert.match(html,/Game version 1.21/);
- assert.match(sw,/letterloom-offline-v22/);
+ assert.match(html,/Game version 1.22/);
+ assert.match(sw,/letterloom-offline-v24/);
  assert.ok(!sw.includes('letterloom-uk-dictionary-v1.9'),'retired dictionary cache is not retained');
- for(const url of ['engine.js','uk-dictionary.js'])assert.ok(sw.includes(`./${url}?v=1.21.0`),url);
+ for(const url of ['engine.js','uk-dictionary.js'])assert.ok(sw.includes(`./${url}?v=1.22.0`),url);
  assert.ok(sw.includes('./dictionary.txt?v=1.21.0'));
  for(const url of ['everyday-words.txt','bot-words.txt'])assert.ok(sw.includes(`./${url}?v=1.9.0`),url);
- assert.ok(sw.includes('./app.js?v=1.21.0'));
- for(const url of ['bot.js','bot.worker.js'])assert.ok(sw.includes(`./${url}?v=1.21.0`),url);
+ assert.ok(sw.includes('./app.js?v=1.22.0'));
+ for(const url of ['bot.js','bot.worker.js'])assert.ok(sw.includes(`./${url}?v=1.22.0`),url);
  assert.ok(sw.includes('./bot-familiarity.js?v=1.19.0'));
  assert.ok(sw.includes('./rack-order.js?v=1.15.0'));
- assert.ok(sw.includes('./word-lookup.js?v=1.19.0'));
+ assert.ok(sw.includes('./word-lookup.js?v=1.22.0'));
  assert.match(app,/endgame-breakdown/);
 });
 test('offline fallback has no non-letter entries or duplicates',()=>{
