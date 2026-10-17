@@ -1,7 +1,7 @@
 name: Letterloom tests
 on:
   push:
-    branches: [main, feature/relaxed-oz-qi-v1.22]
+    branches: [main, 'feature/**', 'fix/**']
   pull_request:
     branches: [main]
 jobs:
@@ -14,4 +14,4 @@ jobs:
           node-version: '22'
       - run: npm test
       - name: Check browser script syntax
-        run: node --check app.js && node --check turn-status.js && node --check bot.worker.js && node --check sw.js
+        run: node --check engine.js && node --check app.js && node --check turn-status.js && node --check bot.worker.js && node --check sw.js
