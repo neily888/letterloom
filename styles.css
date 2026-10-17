@@ -280,3 +280,32 @@
   .rack-header{padding-bottom:4px}
   .move-bottom{margin-top:6px}
 }
+
+
+/* v1.22.2 — a conspicuous, readable turn announcement without resizing the board. */
+.turn-indicator{
+  display:inline-flex;align-items:center;gap:9px;flex:none;
+  min-height:44px;padding:7px 12px;border:2px solid #1c523e;border-radius:12px;
+  background:#245f49;color:#fff;font-size:20px;font-weight:900;line-height:1.1;
+  letter-spacing:.005em;box-shadow:0 2px 0 #173e31
+}
+.turn-indicator>span:first-child{
+  width:11px;height:11px;flex:none;border-radius:50%;
+  background:#b8e9b9;box-shadow:0 0 0 2px #ffffff2b
+}
+.turn-indicator.is-waiting{background:#e6eee6;border-color:#c0d5c7;color:#355e4e;box-shadow:none}
+.turn-indicator.is-waiting>span:first-child{background:#89ae9b;box-shadow:none}
+.game-status-line .tile-count{font-size:13px;font-weight:800;color:#667e70}
+.mobile-score.active{border-color:#519770;background:#edf8ee}
+.mobile-score.active span,.player-card.active .player-meta strong{font-weight:900;color:#225b42}
+@media (min-width:601px) and (max-width:980px){
+  .game-status-line{flex-wrap:wrap;column-gap:6px;align-content:center}
+  .game-status-line .turn-indicator{font-size:18px;gap:7px;padding:8px 10px}
+  .game-status-line .tile-count{font-size:12px}
+}
+@media (max-width:600px){
+  .game-status-line .turn-indicator{font-size:20px;min-height:44px;gap:9px;padding:8px 12px}
+}
+@media (max-width:360px){
+  .game-status-line .turn-indicator{font-size:18px;padding:7px 9px}
+}
