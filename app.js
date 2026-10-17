@@ -1,10 +1,11 @@
-import {SIZE, PREMIUM, CENTER, createGame, evaluateMove, commitMove, takePass, shuffle, LETTER_POINTS, createLegalDictionary} from './engine.js?v=1.22.0';
-import {findBotMove, findQuickBotMove, computerCandidateWords} from './bot.js?v=1.22.0';
-import {loadBritishWords} from './uk-dictionary.js?v=1.22.0';
+import {SIZE, PREMIUM, CENTER, createGame, evaluateMove, commitMove, takePass, shuffle, LETTER_POINTS, createLegalDictionary} from './engine.js?v=1.22.2';
+import {findBotMove, findQuickBotMove, computerCandidateWords} from './bot.js?v=1.22.2';
+import {loadBritishWords} from './uk-dictionary.js?v=1.22.2';
 import {wordsAtCell, createDefinitionLookup} from './word-lookup.js?v=1.22.0';
 import {moveVisibleRackTile, nearestRackSlot, rackShiftOffsets} from './rack-order.js?v=1.15.0';
 import {movePendingTile, returnPendingTile} from './board-placement.js?v=1.16.0';
 import {getLastComputerMove} from './last-move.js?v=1.17.0';
+import {currentTurnText} from './turn-status.js?v=1.22.2';
 
 const $ = id => document.getElementById(id);
 // Keep the original key and save schema so existing games remain playable.
@@ -322,7 +323,9 @@ function renderScores(){
   $('turn-label').textContent=game.status==='finished'?'GAME OVER':`TURN ${String(game.turn).padStart(2,'0')}`;
   $('style-indicator').textContent=game.playStyle==='relaxed'?(game.everydayShortWords?'Relaxed · Everyday words':'Relaxed play'):'Classic play';
   document.body.classList.toggle('relaxed-layout',game.playStyle==='relaxed');
-  $('current-player-label').textContent=game.status==='finished'?'Game finished':thinking?'Computer is thinking…':privacy?'Ready for the next player':`${game.players[game.current].name}'s turn`;
+  const turnText=currentTurnText(game);
+  if($('current-player-label').textContent!==turnText)$('current-player-label').textContent=turnText;
+  document.querySelector('.turn-indicator').classList.toggle('is-waiting',!humanTurn());
   $('tile-count').textContent=`${game.bag.length} tiles left`;
   $('dictionary-count').textContent=dictionary?`${dictionary.size.toLocaleString('en-GB')} UK words`:'UK English';
   const latest=game.history[0];

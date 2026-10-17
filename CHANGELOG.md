@@ -1,5 +1,12 @@
 # Letterloom changelog
 
+## v1.22.2 — Clear turn announcement and no Roman numeral III
+
+- Make **Your turn** bold and prominent below the board with a high-contrast green badge; the human player no longer sees the ungrammatical “You's turn”.
+- Show **Computer's turn**, **Player 1's turn**, or **Player 2's turn** appropriately, with an accessible live status for turn changes.
+- Exclude Roman numeral **III** consistently in Classic and Relaxed (Everyday Short Words on or off), for people, computer moves, and crossing words. Preserve QI, Relaxed-only OZ, and all other existing word rules.
+- Keep the board size, saved-game key and format, scores and offline dictionary source unchanged. Refresh versioned app, styles and offline cache.
+
 ## v1.22.1 — Full-size iPad board with larger text
 
 - Keep the 15 × 15 board at its full available width on iPhones and portrait iPads rather than reducing it to make controls fit.

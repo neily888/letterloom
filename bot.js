@@ -1,4 +1,4 @@
-import {SIZE, CENTER, evaluateMove, isPlayableWord} from './engine.js?v=1.22.0';
+import {SIZE, CENTER, evaluateMove, isPlayableWord} from './engine.js?v=1.22.2';
 import {assessMoveFamiliarity} from './bot-familiarity.js?v=1.19.0';
 
 // The computer favours familiar vocabulary, but must still be able to play
