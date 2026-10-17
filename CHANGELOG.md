@@ -1,5 +1,13 @@
 # Letterloom changelog
 
+## v1.22.3 — Roman numerals are not playable words
+
+- Reject canonical Roman numeral spellings (including VII, VIII, XII, XIII, XIV and XXXIX) for both people and the computer in Classic and Relaxed Play, with Everyday Short Words on or off.
+- Preserve words with independent English meanings that share numeral spellings, including XI, MI, LI, MM, MIX and DIV. The original word list stays bundled and unchanged.
+- The Word Discovery view explains Roman numerals in older saved games accurately instead of saying they are still playable.
+- Existing saved boards, move histories, scores and all other gameplay features remain unchanged. The new rule only affects new moves.
+- Add extensive numeral, computer-play and saved-game regression tests, and refresh the offline cache.
+
 ## v1.22.2 — Clear turn announcement and no Roman numeral III
 
 - Make **Your turn** bold and prominent below the board with a high-contrast green badge; the human player no longer sees the ungrammatical “You's turn”.
