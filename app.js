@@ -1,6 +1,6 @@
-import {SIZE, PREMIUM, CENTER, createGame, evaluateMove, commitMove, takePass, shuffle, LETTER_POINTS, createLegalDictionary} from './engine.js?v=1.22.2';
-import {findBotMove, findQuickBotMove, computerCandidateWords} from './bot.js?v=1.22.2';
-import {loadBritishWords} from './uk-dictionary.js?v=1.22.2';
+import {SIZE, PREMIUM, CENTER, createGame, evaluateMove, commitMove, takePass, shuffle, LETTER_POINTS, createLegalDictionary, excludedRomanNumeralValue} from './engine.js?v=1.22.3';
+import {findBotMove, findQuickBotMove, computerCandidateWords} from './bot.js?v=1.22.3';
+import {loadBritishWords} from './uk-dictionary.js?v=1.22.3';
 import {wordsAtCell, createDefinitionLookup} from './word-lookup.js?v=1.22.0';
 import {moveVisibleRackTile, nearestRackSlot, rackShiftOffsets} from './rack-order.js?v=1.15.0';
 import {movePendingTile, returnPendingTile} from './board-placement.js?v=1.16.0';
@@ -538,6 +538,13 @@ async function showSelectedMeaning(word){
   });
   const result=$('definition-result');
   currentDefinitionMeaning=null;
+  // Historical moves stay on saved boards, even if their words are no longer
+  // accepted. Explain their Roman-numeral meaning instead of saying playable.
+  const numeralValue=excludedRomanNumeralValue(word);
+  if(numeralValue!==null){
+    result.innerHTML=`<h3 class="defined-word">${escapeText(word)}</h3><div class="meaning-item"><div class="meaning-type">Roman numeral · historical move</div><p>${escapeText(word)} represents the number ${numeralValue}. Roman numerals are no longer allowed in new Letterloom moves. Previous plays and their scores are preserved.</p></div>`;
+    return;
+  }
   result.innerHTML='<p class="definition-loading">Finding the meaning…</p>';
   const meaning=await lookUpDefinition(word);
   if(modalType!=='definition'||activeDefinitionWord!==word||request!==definitionRequestId)return;
