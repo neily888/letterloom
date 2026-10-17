@@ -55,7 +55,8 @@ export function createLegalDictionary(words, playStyle='classic', everydayShortW
   const base=words instanceof Set?words:new Set(words);
   if(playStyle!=='relaxed')return base;
   const selected=everydayShortWords?new Set([...base].filter(isEverydayShortWord)):new Set(base);
-  // Letterloom house rule: OZ (ounce) is playable in Relaxed, but not Classic.
+  // QI is a playable word and OZ (ounce) is a Relaxed-only house rule.
+  selected.add('QI');
   selected.add('OZ');
   return selected;
 }
