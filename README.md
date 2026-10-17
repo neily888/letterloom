@@ -1,4 +1,8 @@
-# Letterloom v1.21 — One bundled British English dictionary
+# Letterloom v1.22 — Compact play and Relaxed short words
+
+Version 1.22 allows QI and the Relaxed-only house-rule word OZ for both players, including with Everyday Short Words on. The Arrange toggle has been removed: drag tiles along the rack whenever you wish, or use the larger outlined Shuffle button. The screen is more compact on portrait iPhones and iPads and on laptops/Chromebooks. The saved-match format and game rules outside these targeted changes are unchanged.
+
+# Earlier: v1.21 — One bundled British English dictionary
 
 The game's complete dictionary is now a **single, versioned, fully offline** file: **158,807 unique words, 1,603,136 bytes** (UTF-8 plain text). This combines the previous bundled fallback list with the expanded LibreOffice en_GB Hunspell word list, removing duplicates and explicitly disallowed American-only spellings.
 
@@ -8,7 +12,7 @@ See [DICTIONARY-SOURCES.md](DICTIONARY-SOURCES.md) for provenance, rebuilding, a
 
 # Letterloom v1.20 — Everyday Short Words
 
-New Relaxed matches default to **Everyday Short Words**, a selectable option on the New game screen. Both players use the same rules for every word formed, including crossings. Familiar short forms like AD, AB, IN, GO and PO are allowed; EL, EF, LI, UT, QI and ZA are excluded when enabled. Most three-letter words remain accepted. Classic uses the full list.
+New Relaxed matches default to **Everyday Short Words**, a selectable option on the New game screen. Both players use the same rules for every word formed, including crossings. Familiar short forms like AD, AB, IN, GO and PO are allowed; EL, EF, LI, UT and ZA are excluded when enabled. QI and OZ are allowed in Relaxed even with this preference enabled. Most three-letter words remain accepted. Classic uses the full list.
 
 Existing saved games keep their previous word rules. Begin a new Relaxed match to try this change. Cloudflare Pages will publish automatically from the GitHub main branch.
 
@@ -54,12 +58,12 @@ Drag a letter you have placed onto the board to another square **before pressing
 
 Repositioning does not use a turn, cost points or change which letters you have. The move is saved and the score preview updates immediately. Dragging into the small gaps between board squares selects the nearest board cell.
 
-## Earlier: v1.14 — Arrange your letter rack
+## Earlier: v1.14 — Drag to rearrange your letter rack (updated in v1.22)
 
 You can arrange your seven letters by hand, without losing a turn:
 
-- **On iPhone and iPad**, drag a tile along the rack with your finger, or tap **⇄ Arrange**, then tap any two letters to swap them. Tap **✓ Done** when ready to play. A finger-drag can also place a tile onto the board in normal play.
-- **On Chromebook or desktop**, drag a tile onto another tile to reorder it. The two-tap Arrange option also works with a mouse or keyboard.
+- **On iPhone and iPad**, drag a tile along the rack with your finger at any time. A finger-drag can also place a tile onto the board in normal play.
+- **On Chromebook or desktop**, drag a tile onto another tile to reorder it. Short clicks still select tiles for placement.
 - **Shuffle** still works exactly as before.
 - These changes rearrange only your existing letter tiles. They never swap tiles with the bag, change scores, or advance the turn. The order is saved with your existing match.
 
@@ -107,7 +111,7 @@ The game saves its match in localStorage on each device. Keeping the same Netlif
 - 100 physical letter tiles, including 2 blanks (Letterloom's original distribution — *not* identical to the 104 tiles used in Words With Friends).
 - Seven-tile racks, 15 × 15 bonus-square board, 35-point bonus for playing all seven tiles.
 - Computer or local two-player pass-and-play modes.
-- Tap-to-place, touchscreen and mouse drag-to-reorder racks, two-tap Arrange mode, tile shuffle, swap, undo, hint in Relaxed mode.
+- Tap-to-place, touchscreen and mouse drag-to-reorder racks, tile shuffle, swap, undo, hint in Relaxed mode.
 - Persistent saved games and installable PWA with a service worker.
 - No accounts or cloud syncing. Games on your iPhone and iPad are stored separately.
 
@@ -155,7 +159,7 @@ See `THIRD_PARTY_NOTICES.md` and `SCOWL_COPYRIGHT.txt`. Letterloom is an origina
 
 ### v1.15 — smoother rack dragging
 
-Drag a letter directly along the rack on iPhone, iPad or desktop. Keep your finger down to move it; adjacent tiles slide apart and you can release between tiles (or just past either end). Short taps still select a letter for normal play. For accessibility, **Arrange** lets you swap two letters by tapping. Neither method changes a turn or score. Updated app assets use v1.15 cache-busting URLs; saved matches retain the original key.
+Drag a letter directly along the rack on iPhone, iPad or desktop. Keep your finger down to move it; adjacent tiles slide apart and you can release between tiles (or just past either end). Short taps still select a letter for normal play. The separate two-tap Arrange mode was retired in v1.22. Dragging along the rack never changes a turn or score. Updated app assets use v1.15 cache-busting URLs; saved matches retain the original key.
 
 ### v1.16 — freely reposition tentative board tiles
 
