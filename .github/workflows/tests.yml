@@ -1,7 +1,7 @@
 name: Letterloom tests
 on:
   push:
-    branches: [main, feature/bundled-uk-dictionary-v1.21]
+    branches: [main, feature/relaxed-oz-qi-v1.22]
   pull_request:
     branches: [main]
 jobs:
@@ -13,3 +13,5 @@ jobs:
         with:
           node-version: '22'
       - run: npm test
+      - name: Check browser script syntax
+        run: node --check app.js && node --check bot.worker.js && node --check sw.js

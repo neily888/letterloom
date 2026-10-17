@@ -1,3 +1,13 @@
+# Letterloom changelog
+
+## v1.22 — Compact play screen and shared Relaxed short words
+
+- QI and OZ are available to both human and computer in Relaxed, even with Everyday Short Words enabled. OZ remains a Relaxed-only house rule.
+- Removed Arrange and its tap-two-letters mode. Drag along the rack remains available at all times without taking a turn.
+- A larger outlined Shuffle control and tighter spacing above and below the board.
+- Prioritises full-width 15 × 15 board tiles on large portrait iPhones, a height-aware large board on portrait 10-inch iPads and a compact laptop/Chromebook layout.
+- Maintains saved games, scores, dictionary, gameplay mechanics, and offline support; refreshed the PWA cache and added regression tests.
+
 # Letterloom release notes
 
 ## v1.21 — One consistent offline British dictionary

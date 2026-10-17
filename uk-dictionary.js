@@ -4,7 +4,7 @@
  * Licence notices: see DICTIONARY-SOURCES.md.
  * Retain expandBritishHunspell for regression checks and future rebuilds.
  */
-import {TWO_LETTER_WORDS} from './engine.js?v=1.21.0';
+import {TWO_LETTER_WORDS} from './engine.js?v=1.22.0';
 
 const UK_DIC='https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_GB.dic';
 const UK_AFF='https://raw.githubusercontent.com/LibreOffice/dictionaries/master/en/en_GB.aff';

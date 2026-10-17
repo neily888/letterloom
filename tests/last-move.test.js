@@ -49,7 +49,7 @@ test('UI exposes the control and retains last-move replay until the board is tap
   const css=readFileSync(new URL('styles.css',root),'utf8');
   const worker=readFileSync(new URL('sw.js',root),'utf8');
   assert.match(page,/id="show-last-move"[^>]+aria-pressed="false"/);
-  assert.match(page,/Game version 1\.21/);
+  assert.match(page,/Game version 1\.22/);
   assert.match(app,/function toggleLastComputerMove\(/);
   assert.match(app,/computerHighlight==='replay'\)stopComputerHighlight\(\)/);
   assert.match(app,/showAutomaticComputerMove\(\)/);
@@ -58,5 +58,5 @@ test('UI exposes the control and retains last-move replay until the board is tap
   assert.match(css,/\.square\.is-computer-highlight \.letter-tile/);
   assert.match(css,/\.last-move-button\[hidden\]\{display:none\}/);
   assert.match(worker,/last-move\.js\?v=1\.17\.0/);
-  assert.match(worker,/styles\.css\?v=1\.21\.0/);
+  assert.match(worker,/styles\.css\?v=1\.22\.0/);
 });

@@ -8,7 +8,7 @@
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" type="image/svg+xml" href="./assets/icon.svg" />
   <link rel="apple-touch-icon" href="./assets/icon-192.png" />
-  <link rel="stylesheet" href="./styles.css?v=1.21.0" />
+  <link rel="stylesheet" href="./styles.css?v=1.22.0" />
   <title>Letterloom — a little friendly wordplay</title>
 </head>
 <body>
@@ -49,8 +49,8 @@
           <div class="board-corner corner-b" aria-hidden="true">✦</div>
         </div>
         <div class="game-status-line"><span class="turn-indicator"><span></span><span id="current-player-label">Your turn</span></span><span class="tile-count" id="tile-count">86 tiles left</span></div><div class="last-move-row"><div id="last-move-note" class="last-move-note" aria-live="polite"></div><button type="button" id="show-last-move" class="last-move-button" aria-pressed="false" hidden>◉ Show last move</button></div><p class="definition-tip"><span aria-hidden="true">▤</span> Tap a word on the board to see what it means.</p>
-        <div class="rack-header"><div><span class="eyebrow">YOUR LETTERS</span><span class="rack-caption" id="rack-caption">Tap to play · drag to arrange</span></div><div class="rack-tools"><button id="hint-button" class="tiny-action hint-action" title="Show a possible word" type="button">✦ Hint</button><button id="undo-button" class="tiny-action" title="Recall placed tiles">↶ Undo</button><button id="arrange-button" class="tiny-action arrange-action" title="Arrange your rack by hand" type="button" aria-pressed="false">⇄ Arrange</button><button id="shuffle-button" class="tiny-action" title="Shuffle letters">⤨ Shuffle</button></div></div>
-        <div class="rack-wrap"><div id="rack" class="rack" aria-label="Your seven letter tiles"></div></div><p id="rack-order-tip" class="rack-order-tip" role="status" aria-live="polite" hidden></p>
+        <div class="rack-header"><div><span class="eyebrow">YOUR LETTERS</span><span class="rack-caption" id="rack-caption">Tap to play · drag to arrange</span></div><div class="rack-tools"><button id="hint-button" class="tiny-action hint-action" title="Show a possible word" type="button">✦ Hint</button><button id="undo-button" class="tiny-action" title="Recall placed tiles">↶ Undo</button><button id="shuffle-button" class="shuffle-action" title="Shuffle letters" type="button">⤨ Shuffle</button></div></div>
+        <div class="rack-wrap"><div id="rack" class="rack" aria-label="Your seven letter tiles"></div></div>
         <div class="move-bottom"><div class="move-feedback" id="move-feedback" role="status" aria-live="polite"><span class="feedback-icon">✦</span><span id="feedback-text">Loading your dictionary…</span></div><div class="action-group"><button id="swap-button" class="secondary-action">Swap</button><button id="pass-button" class="secondary-action">Pass</button><button id="play-button" class="primary-action" disabled>Play word <span class="play-score" id="play-score"></span><span aria-hidden="true">→</span></button></div></div>
       </section>
       <aside class="side-panel right-panel">
@@ -59,10 +59,10 @@
         <button id="rules-link" class="rules-link">New to word games? <span>How to play ↗</span></button>
       </aside>
     </main>
-    <footer class="page-footer"><span>MADE FOR WORD PEOPLE ✳</span><span>A standalone, unofficial word game. Not affiliated with Words With Friends. <span id="dictionary-count" class="app-version">UK English</span> · <span class="app-version" aria-label="Game version 1.21">v1.21</span></span></footer>
+    <footer class="page-footer"><span>MADE FOR WORD PEOPLE ✳</span><span>A standalone, unofficial word game. Not affiliated with Words With Friends. <span id="dictionary-count" class="app-version">UK English</span> · <span class="app-version" aria-label="Game version 1.22">v1.22</span></span></footer>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="modal-backdrop" id="modal-backdrop" hidden><div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"></div></div>
-  <script type="module" src="./app.js?v=1.21.0"></script>
+  <script type="module" src="./app.js?v=1.22.0"></script>
 </body>
 </html>

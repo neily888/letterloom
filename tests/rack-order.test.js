@@ -40,16 +40,16 @@ test('order survives normal JSON match saving without modifying tile objects',()
  assert.deepEqual(ids(restored.players[0].rack),[prior[5],...prior.slice(0,5),prior[6]]);
  assert.equal(restored.players[0].rack.length,7);
 });
-test('iPad-friendly arrangement controls and cache are present',()=>{
+test('iPad-friendly rack dragging and cache are present',()=>{
  const index=readFileSync(new URL('../index.html',import.meta.url),'utf8');
  const app=readFileSync(new URL('../app.js',import.meta.url),'utf8');
  const css=readFileSync(new URL('../styles.css',import.meta.url),'utf8');
  const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
- assert.match(index,/id="arrange-button"/);
- assert.match(index,/id="rack-order-tip"/);
- assert.match(index,/Game version 1.21/);
+ assert.doesNotMatch(index,/id="arrange-button"/);
+ assert.match(index,/id="shuffle-button"/);
+ assert.match(index,/Game version 1.22/);
  assert.match(app,/pointerdown/);assert.match(app,/pointermove/);assert.match(app,/pointerup/);
- assert.match(app,/swapRackTiles/);assert.match(app,/moveVisibleRackTile/);assert.match(app,/persist\(\)/);
+ assert.doesNotMatch(app,/swapRackTiles/);assert.match(app,/moveVisibleRackTile/);assert.match(app,/persist\(\)/);
  assert.match(css,/touch-action:none/);
  assert.match(sw,/rack-order.js\?v=1.15.0/);
 });
