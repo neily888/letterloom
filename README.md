@@ -1,3 +1,7 @@
+# Letterloom v1.22.1 — Full-size board, clearer type
+
+The portrait iPad and large-iPhone boards stay at their full available width. iPad scores, turn information, rack, and actions are arranged more compactly, with larger board and control lettering. Saved matches and word rules are unchanged.
+
 # Letterloom v1.22 — Compact play and Relaxed short words
 
 Version 1.22 allows QI and the Relaxed-only house-rule word OZ for both players, including with Everyday Short Words on. The Arrange toggle has been removed: drag tiles along the rack whenever you wish, or use the larger outlined Shuffle button. The screen is more compact on portrait iPhones and iPads and on laptops/Chromebooks. The saved-match format and game rules outside these targeted changes are unchanged.
