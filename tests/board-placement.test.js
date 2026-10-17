@@ -62,6 +62,6 @@ test('board drag is wired for pointer and touch, with versioned offline files',(
  assert.match(app,/boardIndexAtPoint/);
  assert.match(app,/ignoreBoardClickUntil/);
  assert.match(styles,/\.square\.is-pending\{touch-action:none/);
- assert.match(sw,/board-placement\.js\?v=1\.16\.0/);
+ assert.match(sw,/board-placement\.js\?v=1\.22\.4/);
  assert.match(index,/Game version 1\.22/);
 });
