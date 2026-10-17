@@ -13,3 +13,5 @@ jobs:
         with:
           node-version: '22'
       - run: npm test
+      - name: Check browser script syntax
+        run: node --check app.js && node --check bot.worker.js && node --check sw.js
