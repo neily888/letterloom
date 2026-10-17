@@ -42,22 +42,25 @@ ZA`.trim().split(/\s+/));
 export const EVERYDAY_TWO_LETTER_WORDS = new Set(`AB AD AH AI AM AN AS AT AW AY
 BE BI BY DO ED EH EX GO HA HE HI HM HO ID IF IN IS IT
 LA LO MA ME MI MO MY NO OF OH OI OK ON OR OW OX
-PA PI PO RE SH SO TA TO UH UM UN UP US WE YA YE YO`.split(/\s+/));
+PA PI PO QI RE SH SO TA TO UH UM UN UP US WE YA YE YO`.split(/\s+/));
 // Only unambiguous rare three-letter game forms: avoid removing common
 // words which happen to share a spelling with a letter's name (BEE, PEE).
 export const EXCLUDED_THREE_LETTER_WORDS = new Set(`CEE DEE EFF ELL EMM ESS QIS XIS ZAS`.split(/\s+/));
 export function isEverydayShortWord(word){
-  if(word.length===2)return EVERYDAY_TWO_LETTER_WORDS.has(word);
+  if(word.length===2)return EVERYDAY_TWO_LETTER_WORDS.has(word) || word==='OZ';
   if(word.length===3)return !EXCLUDED_THREE_LETTER_WORDS.has(word);
   return true;
 }
 export function createLegalDictionary(words, playStyle='classic', everydayShortWords=playStyle==='relaxed') {
   const base=words instanceof Set?words:new Set(words);
-  if(playStyle!=='relaxed'||!everydayShortWords)return base;
-  return new Set([...base].filter(isEverydayShortWord));
+  if(playStyle!=='relaxed')return base;
+  const selected=everydayShortWords?new Set([...base].filter(isEverydayShortWord)):new Set(base);
+  // Letterloom house rule: OZ (ounce) is playable in Relaxed, but not Classic.
+  selected.add('OZ');
+  return selected;
 }
 export const isPlayableWord = (word, dictionary) =>
-  !!dictionary && dictionary.has(word) && (word.length !== 2 || TWO_LETTER_WORDS.has(word));
+  !!dictionary && dictionary.has(word) && (word.length !== 2 || TWO_LETTER_WORDS.has(word) || word==='OZ');
 const pos = (r,c) => r * SIZE + c;
 const premium = Array(SIZE * SIZE).fill('');
 function assign(type, coords) {for(const [r,c] of coords) premium[pos(r,c)] = type;}
