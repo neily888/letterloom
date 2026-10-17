@@ -46,19 +46,24 @@ PA PI PO QI RE SH SO TA TO UH UM UN UP US WE YA YE YO`.split(/\s+/));
 // Only unambiguous rare three-letter game forms: avoid removing common
 // words which happen to share a spelling with a letter's name (BEE, PEE).
 export const EXCLUDED_THREE_LETTER_WORDS = new Set(`CEE DEE EFF ELL EMM ESS QIS XIS ZAS`.split(/\s+/));
-// III is a Roman numeral, not a playable word. Reject it for every player,
-// including Classic and Relaxed without the Everyday Short Words preference.
-export const NON_PLAYABLE_WORDS = new Set(['III']);
+// The bundled British-English list includes Roman numerals such as III, VIII
+// and XXXIX. Do not treat numbers as words. Some spellings ALSO have independent
+// English meanings and must remain playable (XI = Greek letter, MI = note,
+// LI = distance unit, MM = interjection, MIX = verb, DIV = British slang).
+// Only canonical numeral spellings of 2-15 letters are excluded.
+export const ROMAN_NUMERAL_WORD_EXCEPTIONS = new Set(['XI','LI','MI','MM','MIX','DIV']);
+const ROMAN_NUMERAL_PATTERN = /^(?=.{2,15}$)M{0,3}(?:CM|CD|D?C{0,3})(?:XC|XL|L?X{0,3})(?:IX|IV|V?I{0,3})$/;
+export const isExcludedRomanNumeral = word =>
+  !ROMAN_NUMERAL_WORD_EXCEPTIONS.has(word) && ROMAN_NUMERAL_PATTERN.test(word);
 export function isEverydayShortWord(word){
-  if(NON_PLAYABLE_WORDS.has(word))return false;
+  if(isExcludedRomanNumeral(word))return false;
   if(word.length===2)return EVERYDAY_TWO_LETTER_WORDS.has(word) || word==='OZ';
   if(word.length===3)return !EXCLUDED_THREE_LETTER_WORDS.has(word);
   return true;
 }
 export function createLegalDictionary(words, playStyle='classic', everydayShortWords=playStyle==='relaxed') {
   const base=words instanceof Set?words:new Set(words);
-  const selected=playStyle==='relaxed' && everydayShortWords?new Set([...base].filter(isEverydayShortWord)):new Set(base);
-  selected.delete('III');
+  const selected=new Set([...base].filter(word=>!isExcludedRomanNumeral(word) && (playStyle!=='relaxed'||!everydayShortWords||isEverydayShortWord(word))));
   if(playStyle!=='relaxed')return selected;
   // QI is a playable word and OZ (ounce) is a Relaxed-only house rule.
   selected.add('QI');
@@ -66,7 +71,7 @@ export function createLegalDictionary(words, playStyle='classic', everydayShortW
   return selected;
 }
 export const isPlayableWord = (word, dictionary) =>
-  !!dictionary && dictionary.has(word) && !NON_PLAYABLE_WORDS.has(word) && (word.length !== 2 || TWO_LETTER_WORDS.has(word) || word==='OZ');
+  !!dictionary && dictionary.has(word) && !isExcludedRomanNumeral(word) && (word.length !== 2 || TWO_LETTER_WORDS.has(word) || word==='OZ');
 const pos = (r,c) => r * SIZE + c;
 const premium = Array(SIZE * SIZE).fill('');
 function assign(type, coords) {for(const [r,c] of coords) premium[pos(r,c)] = type;}
@@ -174,7 +179,8 @@ export function evaluateMove(game,pending=game.pending,dictionary=null){
   const hasOldTiles=game.board.some(Boolean);
   if(!hasOldTiles && !overlay.has(CENTER)) return fail('Your opening word must cover the centre star.');
   if(hasOldTiles && !words.some(w=>w.cells.some(cell=>!cell.fresh))) return fail('Connect your word to a letter already on the board.');
-  if(words.some(w=>NON_PLAYABLE_WORDS.has(w.word)))return fail('III is a Roman numeral, not a playable word.');
+  const numerals=words.filter(w=>isExcludedRomanNumeral(w.word));
+  if(numerals.length)return fail(`${numerals.map(w=>w.word).join(', ')} ${numerals.length===1?'is a Roman numeral':'are Roman numerals'}, not playable words.`);
   if(game.playStyle==='relaxed' && game.everydayShortWords){
     const excluded=words.filter(w=>!isEverydayShortWord(w.word));
     if(excluded.length)return fail(`${excluded.map(w=>w.word).join(', ')} ${excluded.length===1?'is':'are'} excluded by Everyday Short Words. You can switch this off for a new match.`);
