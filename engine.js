@@ -55,6 +55,12 @@ export const ROMAN_NUMERAL_WORD_EXCEPTIONS = new Set(['XI','LI','MI','MM','MIX',
 const ROMAN_NUMERAL_PATTERN = /^(?=.{2,15}$)M{0,3}(?:CM|CD|D?C{0,3})(?:XC|XL|L?X{0,3})(?:IX|IV|V?I{0,3})$/;
 export const isExcludedRomanNumeral = word =>
   !ROMAN_NUMERAL_WORD_EXCEPTIONS.has(word) && ROMAN_NUMERAL_PATTERN.test(word);
+export function excludedRomanNumeralValue(word){
+  if(!isExcludedRomanNumeral(word))return null;
+  const values={I:1,V:5,X:10,L:50,C:100,D:500,M:1000};
+  return [...word].reduce((sum,char,index)=>
+    sum+(values[char]<values[word[index+1]]?-values[char]:values[char]),0);
+}
 export function isEverydayShortWord(word){
   if(isExcludedRomanNumeral(word))return false;
   if(word.length===2)return EVERYDAY_TWO_LETTER_WORDS.has(word) || word==='OZ';
