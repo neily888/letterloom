@@ -1,6 +1,6 @@
-import {SIZE, PREMIUM, CENTER, createGame, evaluateMove, commitMove, takePass, shuffle, LETTER_POINTS, createLegalDictionary} from './engine.js?v=1.21.0';
-import {findBotMove, findQuickBotMove} from './bot.js?v=1.21.0';
-import {loadBritishWords} from './uk-dictionary.js?v=1.21.0';
+import {SIZE, PREMIUM, CENTER, createGame, evaluateMove, commitMove, takePass, shuffle, LETTER_POINTS, createLegalDictionary} from './engine.js?v=1.22.0';
+import {findBotMove, findQuickBotMove} from './bot.js?v=1.22.0';
+import {loadBritishWords} from './uk-dictionary.js?v=1.22.0';
 import {wordsAtCell, createDefinitionLookup} from './word-lookup.js?v=1.19.0';
 import {moveVisibleRackTile, nearestRackSlot, rackShiftOffsets, swapRackTiles} from './rack-order.js?v=1.15.0';
 import {movePendingTile, returnPendingTile} from './board-placement.js?v=1.16.0';
