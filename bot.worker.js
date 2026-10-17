@@ -1,6 +1,6 @@
-import {findBotMove,findQuickBotMove} from './bot.js?v=1.21.0';
-import {createLegalDictionary} from './engine.js?v=1.21.0';
-import {loadBritishWords} from './uk-dictionary.js?v=1.21.0';
+import {findBotMove,findQuickBotMove} from './bot.js?v=1.22.0';
+import {createLegalDictionary} from './engine.js?v=1.22.0';
+import {loadBritishWords} from './uk-dictionary.js?v=1.22.0';
 let dictionaryPromise;
 let commonPromise;
 let everydayPromise;
