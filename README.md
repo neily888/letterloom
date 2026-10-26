@@ -1,3 +1,7 @@
+# Letterloom v1.22.5 — Dark Forest colour refresh
+
+The approved dark forest-green appearance replaces the pale palette with deeper, warmer board squares, more distinct premium colours, warm wooden letter tiles and clearer controls and text. This update is strictly cosmetic: board geometry, spacing, existing controls, word rules, dictionary, computer play, scores, saved-match schema and existing games are unchanged. A separate `theme-dark.css` stylesheet layers colours on top of the existing layout, and the PWA theme and offline cache have been refreshed.
+
 # Letterloom v1.22.4 — Red unplayed tile outlines and gentle correction cues
 
 Newly placed (unplayed) board tiles now have a thicker red outline. If they cannot form a single row or column, the likely misplaced tile(s) pulse gently three times and a clear message explains how to tap back to the rack or drag into position. Ambiguous placements are all highlighted instead of guessing. The pulse is disabled with Reduced Motion, leaving a stronger static border. Board size, existing games, scores and dictionary rules are unchanged.
