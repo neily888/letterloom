@@ -1,0 +1,165 @@
+/*
+ * Letterloom v1.22.5 — Dark Forest colour refresh.
+ *
+ * Visual properties only. The board geometry, spacing, typography sizes,
+ * touch targets, responsive breakpoints, gameplay and saved games are unchanged.
+ * Load after styles.css so the original layout remains the source of truth.
+ */
+:root {
+  --ink:#f4efe4;
+  --muted:#b6c3b5;
+  --green:#69bc90;
+  --dark-green:#275e49;
+  --cream:#f4e6c6;
+  --line:#3b5447;
+  --board:#293c30;
+  color:#f4efe4;
+  background:#11241d;
+}
+body { background:#11241d; }
+.glow-one { background:radial-gradient(circle,#234335,transparent 70%); }
+.glow-two { background:radial-gradient(circle,#334034,transparent 70%); }
+
+/* Header and surrounding surfaces. */
+.site-header,.page-footer { border-color:#3a5143; }
+.brand-em { color:#80c7a0; }
+.brand small,.eyebrow,.rack-header .eyebrow { color:#b9c8b4; }
+.brand-mark { background:#155740;border-color:#3e916d;box-shadow:3px 4px 0 #bd8159;color:#fff0d3; }
+.offline-badge,.game-status-line,.game-status-line .tile-count { color:#c0cbbb; }
+.offline-dot { background:#8bdbad;box-shadow:0 0 0 4px #32624a; }
+.icon-button,.header-button { background:#25392e;border-color:#516a55;color:#f4efe4; }
+.new-button { background:linear-gradient(180deg,#237c55,#14523c);border-color:#39916b;color:#fffaf0; }
+.side-heading em,.accent-eyebrow { color:#8bc3a2; }
+.heading-period,.feedback-icon { color:#e1a06b; }
+.turn-pill,.style-indicator { background:#233b30;color:#d4e7d1;border-color:#466654; }
+.player-card,.mobile-score,.panel-card { background:#22332b;border-color:#465548;box-shadow:0 5px 17px #06170e33; }
+.player-card.active,.mobile-score.active { background:#173d2d;border-color:#5ea982;box-shadow:0 0 0 1px #225b43; }
+.player-avatar { background:#315542;color:#d7f0d5; }
+.player-avatar.avatar-1 { background:#553e31;color:#f7d4a9; }
+.player-meta span,.history-by,.empty-history,.aside-note,.panel-icon,.legend-foot { color:#adbcab; }
+.player-points,.history-points,.potential-score,.mobile-score strong,
+.mobile-score.active strong,.mobile-score.active span,.player-card.active .player-meta strong {
+  color:#d0e8c8;
+}
+.panel-title,.history-word,.preview-title,.side-heading { color:#f3eee1; }
+.history-dot { background:#7ec69e; }
+.history-item:nth-child(even) .history-dot { background:#e9ad81; }
+.potential-score small,.word-preview { color:#b6c8b4; }
+.preview-chip { background:#2a4836;color:#e8f0de; }
+.preview-chip b { color:#a8e7bc; }
+
+/* Board: dark slate/forest squares, clearer coloured bonuses, warm wood tiles. */
+.board-surround { background:#21362a;border-color:#566550;box-shadow:0 7px 22px #06191068,0 2px 0 #3e533e; }
+.board { background:#12221b; }
+.square { background:#304036;color:#d1ddce; }
+.square:not(.has-tile):hover { background:#3c5341; }
+.square.center:not(.has-tile):after { color:#f4c088; }
+.square.tw,.legend-tile.tw { background:#a44743;color:#fff0e8; }
+.square.dw,.legend-tile.dw { background:#9b5638;color:#fff4e5; }
+.square.tl,.legend-tile.tl { background:#315c77;color:#eef6ff; }
+.square.dl,.legend-tile.dl { background:#4b7858;color:#f0ffe9; }
+.square.has-tile,.square.is-pending { background:#2b3e31; }
+.letter-tile {
+  background:linear-gradient(150deg,#ffe6b5 2%,#ebbd7c 100%);
+  border-color:#d9a367;
+  box-shadow:0 2px 0 #b17b48,0 3px 5px #06170b66;
+  color:#19241d;
+}
+.letter-tile .value { color:#24372b; }
+.square.is-pending .letter-tile {
+  background:linear-gradient(145deg,#fff0ca,#f0c68e);
+  outline-color:#da5658;
+}
+.square.is-last .letter-tile { border-color:#5ca276; }
+.square.is-computer-highlight .letter-tile {
+  background:linear-gradient(145deg,#d9f0ba,#a8d397);
+  border-color:#5b9662;
+  box-shadow:inset 0 0 0 1px #ebf5da,0 2px 0 #547c4b;
+}
+.board-corner { color:#9ab59e; }
+.square.is-hint { background:#376649;outline-color:#95d5a5; }
+.square.is-hint .bonus-label { color:#f2ffe9; }
+.square.board-drop-valid { background:#376749;outline-color:#80db9b; }
+.square.board-drop-invalid { outline-color:#e48e80; }
+
+/* Scores, turn, rack and controls. */
+.turn-indicator { background:#15553b;border-color:#31835e;color:#fff5e7;box-shadow:0 2px 0 #0b2d20; }
+.turn-indicator>span:first-child { background:#a8e7bc;box-shadow:0 0 0 2px #b4e8b033; }
+.turn-indicator.is-waiting { background:#2c4235;border-color:#546958;color:#e2eade;box-shadow:none; }
+.turn-indicator.is-waiting>span:first-child { background:#8eaa97; }
+.last-move-note,.move-feedback,.relaxed-layout .move-feedback,
+.definition-tip,.rack-caption,.rack-hidden { color:#b3c9b3; }
+.last-move-button,.shuffle-action {
+  background:#20382d;
+  border-color:#99cba8;
+  color:#f3f5e8;
+}
+.last-move-button:hover,.last-move-button[aria-pressed="true"],
+.shuffle-action:not(:disabled):hover { background:#315441;border-color:#b9dec0; }
+.tiny-action { color:#c4d9c3; }
+.tiny-action:hover { color:#f0fbe8; }
+.hint-action { color:#a5e1b4!important; }
+.rack-wrap { background:#343d2e;border-color:#5b624a;box-shadow:inset 0 1px 5px #0b211b66; }
+.rack-tile {
+  background:linear-gradient(145deg,#ffe8b9,#edc589);
+  border-color:#d6a267;
+  box-shadow:0 4px 0 #ab804d,0 5px 7px #0b170b61;
+  color:#19241d;
+}
+.rack-tile .value { color:#26352a; }
+.rack-tile.selected { box-shadow:0 3px 0 #ae7948,0 0 0 3px #8de3ae; }
+.rack-tile.drop-target,.rack.rack-dragging .rack-tile.drop-target {
+  outline-color:#8de3ae;
+  background:#ecd39e;
+}
+.rack-empty { background:#2b3d30;border-color:#65765f; }
+.move-feedback.invalid { color:#ffb3a4; }
+.secondary-action { background:#26362d;border-color:#667968;color:#f8f3e9; }
+.primary-action { background:#237c55;border-color:#48a775;color:#fffaf0;box-shadow:0 3px 0 #0b4c31; }
+.primary-action:not(:disabled):hover { background:#2b9065; }
+.play-score { color:#e2ffe5; }
+
+/* Sidebar legend, toast and footer. */
+.legend-row,.rules-link { color:#c1ccba; }
+.rules-link span { color:#a1dfb3; }
+.page-footer { color:#adbdaa; }
+.toast { background:#2c5842;color:#fff8e9;box-shadow:0 10px 30px #030e0966; }
+
+/* Dialogs stay readable and visually consistent with the game. */
+.modal { background:#22362c;color:#f7f0e3;box-shadow:0 32px 90px #030d09aa; }
+.modal p,.modal .rules,.modal .meaning-explainer { color:#c0ccba; }
+.modal .eyebrow,.modal .rules strong { color:#a8dbb2; }
+.modal-close { background:#354c3a;color:#f1eddf; }
+.choice { background:#2b4334;color:#f4f2e3; }
+.choice.selected { background:#295c40;border-color:#8fd0a2; }
+.choice span:last-child { color:#c9d6c6; }
+.choice strong small { background:#345c42;color:#e6fbe8; }
+.choice-heading { color:#b7e0c2; }
+.short-words-option { background:#294b36;border-color:#5b8a62;color:#e7f4e5; }
+.short-words-option small { color:#c9d8c7; }
+.blank-grid button,.swap-tile {
+  background:#f1cc93;
+  border-color:#cba070;
+  color:#202c23;
+}
+.blank-grid button:hover { background:#ffe2ae; }
+.swap-tile.chosen { background:#b1dbba;outline-color:#418458; }
+.modal-highlight { background:#31503a;color:#e7fae4; }
+.modal-scoreline { border-color:#506451; }
+.modal-scoreline strong,.winner-star { color:#b2e5b3; }
+.definition-choice { background:#2e4837;border-color:#607963;color:#f4f1e5; }
+.definition-choice small,.definition-choice .definition-choice-direction { color:#cfdfcd; }
+.definition-choice.chosen { background:#315d41;border-color:#89d1a0;color:#fff7e8; }
+.definition-result { background:#263d30;border-color:#57745d; }
+.definition-result .defined-word { color:#c3eec3; }
+.definition-result .meaning-type { color:#a9d3b6; }
+.definition-result .meaning-item p { color:#f4eee1; }
+.definition-result .meaning-source,
+.definition-result .definition-loading,
+.definition-result .meaning-unavailable { color:#c6d6c2; }
+.definition-external { color:#a8e3bf; }
+.other-meanings-button { background:#305a40;border-color:#70a77d;color:#eaf6e8; }
+.other-meanings-panel { border-color:#56725a; }
+.other-meanings-panel h4 { color:#c8ebc3; }
+.other-meanings-panel .meaning-item+.meaning-item { border-color:#56725a; }
+.endgame-breakdown { color:#b5c6b8; }

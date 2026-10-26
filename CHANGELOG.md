@@ -1,5 +1,12 @@
 # Letterloom changelog
 
+## v1.22.5 — Dark Forest colour refresh (appearance only)
+
+- Apply the approved warmer, dark forest-green palette to the app, board, bonuses, rack, buttons, labels and dialogs.
+- Preserve the existing 15 × 15 board dimensions, responsive layout, rack controls, accessibility interactions, dictionary and gameplay exactly as implemented.
+- Keep saved games and scores intact; update visual-theme PWA resources and cache only.
+- Add a theme-isolation regression check and retain existing gameplay tests.
+
 ## v1.22.4 — Clearer unplayed tiles and gentle alignment guidance
 
 - Make every unplayed tile on the board clearly identifiable with a thicker red outline.
