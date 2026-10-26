@@ -55,7 +55,7 @@ body { background:#11241d; }
 .square:not(.has-tile):hover { background:#3c5341; }
 .square.center:not(.has-tile):after { color:#f4c088; }
 .square.tw,.legend-tile.tw { background:#a44743;color:#fff0e8; }
-.square.dw,.legend-tile.dw { background:#bd7851;color:#fff4e5; }
+.square.dw,.legend-tile.dw { background:#9b5638;color:#fff4e5; }
 .square.tl,.legend-tile.tl { background:#315c77;color:#eef6ff; }
 .square.dl,.legend-tile.dl { background:#4b7858;color:#f0ffe9; }
 .square.has-tile,.square.is-pending { background:#2b3e31; }
