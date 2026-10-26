@@ -76,5 +76,5 @@ test('Shared word rules wired into app, hint worker and install cache',()=>{
  assert.match(app,/id="short-words-checkbox"/);
  assert.match(app,/dictionary=createLegalDictionary\(words,game.playStyle,game.everydayShortWords\)/);
  assert.match(worker,/createLegalDictionary\(baseDictionary,data.game.playStyle,data.game.everydayShortWords\)/);
- assert.match(sw,/letterloom-offline-v28/);
+ assert.match(sw,/letterloom-offline-v29/);
 });
