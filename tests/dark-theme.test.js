@@ -42,6 +42,6 @@ test('Dark Forest ships as a versioned offline-only visual asset', () => {
   assert.match(sw, /\.\/theme-dark\.css\?v=1\.22\.5/);
   assert.equal(manifest.background_color, '#11241d');
   assert.equal(manifest.theme_color, '#11241d');
-  assert.equal(pkg.version, '1.22.5');
+  assert.equal(pkg.version, '1.22.6');
   assert.match(read('app.js'), /letterloom-match-v1/);
 });
