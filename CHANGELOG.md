@@ -1,5 +1,13 @@
 # Letterloom changelog
 
+## v1.22.6 — Prevent accidental pinch zoom on touch devices
+
+- Keep the word-game view fitted to the screen when two fingers touch the page accidentally on iPhone or iPad.
+- Preserve one-finger scrolling and the existing drag-to-arrange, drag-to-place and tap controls.
+- Use touch-action panning with an iOS Safari gesture fallback without preventing normal touchmove events.
+- Keep the 15 × 15 board, layout, colours, word rules, saved games and scores unchanged.
+- Refresh the offline cache and add targeted interaction-regression tests.
+
 ## v1.22.5 — Dark Forest colour refresh (appearance only)
 
 - Apply the approved warmer, dark forest-green palette to the app, board, bonuses, rack, buttons, labels and dialogs.

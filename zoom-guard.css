@@ -1,0 +1,8 @@
+/* v1.22.6: Keep the game at its fitted size on touch devices.
+   Permit single-finger horizontal/vertical scrolling, but not page pinch zoom.
+   Existing drag-specific gesture rules on board/rack tiles take priority. */
+@media (any-pointer: coarse) {
+  html, body, .app, .modal-backdrop, .modal {
+    touch-action: pan-x pan-y;
+  }
+}

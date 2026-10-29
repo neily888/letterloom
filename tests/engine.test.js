@@ -199,8 +199,8 @@ test('offline source and primary UK loader are versioned and installed safely',(
  const sw=readFileSync(new URL('../sw.js',import.meta.url),'utf8');
  for(const source of [app,worker])assert.match(source,/loadBritishWords/);
  assert.match(app,/dictionary=createLegalDictionary\(words,game.playStyle,game.everydayShortWords\)/);
- assert.match(html,/Game version 1.22.5/);
- assert.match(sw,/letterloom-offline-v29/);
+ assert.match(html,/Game version 1.22.6/);
+ assert.match(sw,/letterloom-offline-v30/);
  assert.ok(!sw.includes('letterloom-uk-dictionary-v1.9'),'retired dictionary cache is not retained');
  for(const url of ['engine.js','uk-dictionary.js'])assert.ok(sw.includes(`./${url}?v=1.22.3`),url);
  assert.ok(sw.includes('./dictionary.txt?v=1.21.0'));

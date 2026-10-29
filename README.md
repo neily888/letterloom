@@ -1,3 +1,7 @@
+# Letterloom v1.22.6 — Stable screen size on iPhone and iPad
+
+On touch devices, unintended two-finger gestures no longer magnify the entire game screen. One-finger scrolling, letter taps and existing rack/board dragging are preserved. This is an interaction guard only; the board geometry, layout, colours, dictionary, computer opponent, scores and saved-game format are unchanged. The guard is loaded separately from the game script for easy rollback, and offline resources are versioned.
+
 # Letterloom v1.22.5 — Dark Forest colour refresh
 
 The approved dark forest-green appearance replaces the pale palette with deeper, warmer board squares, more distinct premium colours, warm wooden letter tiles and clearer controls and text. This update is strictly cosmetic: board geometry, spacing, existing controls, word rules, dictionary, computer play, scores, saved-match schema and existing games are unchanged. A separate `theme-dark.css` stylesheet layers colours on top of the existing layout, and the PWA theme and offline cache have been refreshed.
