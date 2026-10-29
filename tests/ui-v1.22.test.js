@@ -25,8 +25,8 @@ test('portrait iPhone, iPad and laptop sizing rules are present',()=>{
 test('v1.22 keeps the original match storage and offline resources',()=>{
  const app=read('app.js'),html=read('index.html'),sw=read('sw.js');
  assert.match(app,/letterloom-match-v1/);
- assert.match(html,/Game version 1.22.5/);
- assert.match(sw,/letterloom-offline-v29/);
+ assert.match(html,/Game version 1.22.6/);
+ assert.match(sw,/letterloom-offline-v30/);
  assert.match(sw,/\.\/word-lookup\.js\?v=1\.22\.0/);
 });
 
