@@ -36,9 +36,9 @@ test('Dark Forest ships as a versioned offline-only visual asset', () => {
   const manifest = JSON.parse(read('manifest.webmanifest'));
   const pkg = JSON.parse(read('package.json'));
   assert.ok(html.indexOf('./styles.css?v=1.22.4') < html.indexOf('./theme-dark.css?v=1.22.5'));
-  assert.match(html, /Game version 1\.22\.5/);
+  assert.match(html, /Game version 1\.22\.6/);
   assert.match(html, /<script type="module" src="\.\/app\.js\?v=1\.22\.4"><\/script>/);
-  assert.match(sw, /letterloom-offline-v29/);
+  assert.match(sw, /letterloom-offline-v30/);
   assert.match(sw, /\.\/theme-dark\.css\?v=1\.22\.5/);
   assert.equal(manifest.background_color, '#11241d');
   assert.equal(manifest.theme_color, '#11241d');
