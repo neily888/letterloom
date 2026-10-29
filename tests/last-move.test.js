@@ -49,7 +49,7 @@ test('UI exposes the control and retains last-move replay until the board is tap
   const css=readFileSync(new URL('styles.css',root),'utf8');
   const worker=readFileSync(new URL('sw.js',root),'utf8');
   assert.match(page,/id="show-last-move"[^>]+aria-pressed="false"/);
-  assert.match(page,/Game version 1\.22\.5/);
+  assert.match(page,/Game version 1\.22\.6/);
   assert.match(app,/function toggleLastComputerMove\(/);
   assert.match(app,/computerHighlight==='replay'\)stopComputerHighlight\(\)/);
   assert.match(app,/showAutomaticComputerMove\(\)/);
