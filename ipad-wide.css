@@ -1,0 +1,77 @@
+/* Letterloom v1.22.7 — 11-inch iPad portrait, edge-to-edge board.
+   Keep the existing 15×15 grid, drag controls, dark colours and save data.
+   iPhones, landscape iPads and laptops keep their existing layout. */
+.ipad-heading-actions { display:none; }
+
+@media (min-width: 760px) and (max-width: 900px) and (orientation: portrait) and (any-pointer: coarse) {
+  .app { padding:0; }
+  /* The brand bar gives its vertical space to the playing board.
+     Help and New game are the SAME buttons, moved into the game heading. */
+  .site-header { display:none; }
+  .layout {
+    grid-template-columns:minmax(0,1fr);
+    padding-top:max(6px,env(safe-area-inset-top,0px));
+    gap:0;
+  }
+  .game-area {
+    width:100%;
+    max-width:none;
+    margin:0;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,2fr);
+    grid-template-areas:"heading heading" "scores scores" "board board"
+      "status last" "racktools racktools" "rack rack" "actions actions";
+    column-gap:8px;
+    row-gap:0;
+  }
+  .game-heading {
+    margin:0 9px 5px;
+    min-height:44px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:5px 8px;
+    flex-wrap:wrap;
+  }
+  .game-heading h2 { font-size:clamp(22px,2.9vw,26px); }
+  .ipad-heading-actions { display:flex;align-items:center;gap:7px;flex:none; }
+  .ipad-heading-actions .new-button {
+    min-height:44px;
+    font-size:14px;
+    padding:9px 12px;
+  }
+  .ipad-heading-actions .icon-button {
+    width:44px;
+    height:44px;
+    font-size:18px;
+  }
+  .turn-badges { gap:5px;flex:none; }
+  .style-indicator,.turn-pill { font-size:11px;padding:6px 9px; }
+  .mobile-scores { margin:0 9px 4px;gap:8px; }
+  .mobile-score { min-height:38px;padding:4px 10px;font-size:14px; }
+  .mobile-score strong { font-size:21px; }
+
+  /* No artificial 710px cap and no side gutters on the board itself. */
+  .board-surround {
+    grid-area:board;
+    width:100%;
+    padding:1px 0;
+    border-left:none;
+    border-right:none;
+    border-radius:0;
+    box-shadow:none;
+  }
+  .board { gap:2px;padding:2px;border-radius:0; }
+  .square,.square .bonus-label { font-size:clamp(12px,1.6vw,14px); }
+  .board .letter-tile { font-size:clamp(26px,3.5vw,30px);font-weight:900; }
+  .board .letter-tile .value { font-size:clamp(9px,1.3vw,11px); }
+
+  /* Keep the existing status/rack/actions directly below the taller board. */
+  .game-status-line { min-height:44px;padding:3px 8px; }
+  .last-move-row { min-height:44px;padding:2px 8px 2px 0; }
+  .rack-header { padding:0 9px 3px; }
+  .rack-wrap { margin:0 9px;padding:5px 9px; }
+  .rack-tile { font-size:clamp(29px,4vw,36px); }
+  .move-bottom { margin:4px 9px 0;gap:7px; }
+  .page-footer { margin-top:8px;padding:9px 9px 18px; }
+}
