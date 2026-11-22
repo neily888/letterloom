@@ -1,3 +1,7 @@
+# Letterloom v1.22.7 — fuller-width board for the 11-inch iPad
+
+Portrait iPads around 11 inches now use virtually the full screen width for the 15×15 board, instead of the former 710 CSS-pixel limit. Board letters and bonus-square labels are larger for easier reading. The decorative Letterloom banner is hidden in this iPad portrait layout, with the existing **New game** and **Help** buttons moved into the **Make your move** heading. The rack and game actions remain below the board with compact spacing. iPhones, laptop/Chromebook layouts and landscape iPads retain their previous layouts. No change to the board geometry, word rules, game logic, colour theme, scores, stored games or touch dragging; this is a targeted visual layout update. PWA offline assets are refreshed for the release.
+
 # Letterloom v1.22.6 — Stable screen size on iPhone and iPad
 
 On touch devices, unintended two-finger gestures no longer magnify the entire game screen. One-finger scrolling, letter taps and existing rack/board dragging are preserved. This is an interaction guard only; the board geometry, layout, colours, dictionary, computer opponent, scores and saved-game format are unchanged. The guard is loaded separately from the game script for easy rollback, and offline resources are versioned.

@@ -1,5 +1,14 @@
 # Letterloom changelog
 
+## v1.22.7 — Edge-to-edge portrait iPad board
+
+- Expand the portrait 11-inch iPad board to the available screen width rather than limiting it to 710 CSS pixels; keep all 15×15 squares and their bonus positions.
+- Enlarge letters in placed tiles and the bonus-square labels for easier reading.
+- Reclaim vertical space by hiding the decorative brand header on portrait iPad; move the original New game and Help controls alongside Make your move without duplicating or altering their handlers.
+- Keep the rack and action buttons together beneath the board; allow natural vertical scrolling if device settings or long move descriptions need it.
+- Preserve iPhone, laptop and iPad landscape styling; do not change play rules, scoring, dragging, dictionary, theme or saved game format.
+- Refresh offline assets, update release checks and add focused portrait-iPad regression tests.
+
 ## v1.22.6 — Prevent accidental pinch zoom on touch devices
 
 - Keep the word-game view fitted to the screen when two fingers touch the page accidentally on iPhone or iPad.

@@ -63,7 +63,7 @@ test('pending outlines are stronger red, with finite pulse and accessible static
  assert.match(app,/red-outlined letter/);
  assert.match(app,/Tap to return to the rack, or drag to move/);
  assert.match(app,/letterloom-match-v1/);
- assert.match(html,/Game version 1\.22\.6/);
- assert.match(sw,/letterloom-offline-v30/);
+ assert.match(html,/Game version 1\.22\.7/);
+ assert.match(sw,/letterloom-offline-v31/);
  assert.match(sw,/board-placement\.js\?v=1\.22\.4/);
 });

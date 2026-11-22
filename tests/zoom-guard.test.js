@@ -40,8 +40,8 @@ test('pinch guard is loaded and cached offline without versioning game logic', (
   assert.match(index, /zoom-guard\.js\?v=1\.22\.6/);
   assert.match(sw, /zoom-guard\.css\?v=1\.22\.6/);
   assert.match(sw, /zoom-guard\.js\?v=1\.22\.6/);
-  assert.match(sw, /letterloom-offline-v30/);
-  assert.match(index, /Game version 1\.22\.6/);
+  assert.match(sw, /letterloom-offline-v31/);
+  assert.match(index, /Game version 1\.22\.7/);
   assert.match(index, /app\.js\?v=1\.22\.4/);
   assert.match(read('app.js'), /letterloom-match-v1/);
 });
